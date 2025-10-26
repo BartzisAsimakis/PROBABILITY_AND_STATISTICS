@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -1334,7 +1335,7 @@ public void start(Stage stage) throws IOException {
             if (newVal != null) {
                 str1_1_9 = newVal;
                 //System.out.println(str1_1_9);
-                updateFactsText();
+                //updateFactsText();
                 imageView_1_9_updater(image_1_9_ImageView);
 
             }
@@ -1344,7 +1345,7 @@ public void start(Stage stage) throws IOException {
             if (newVal != null) {
                 str2_1_9 = newVal;
                 //System.out.println(str2_1_9);
-                updateFactsText();
+                //updateFactsText();
                 imageView_1_9_updater(image_1_9_ImageView);
             }
         });
@@ -1371,8 +1372,13 @@ public void start(Stage stage) throws IOException {
                                         "P ( Bᶜ ∩ A) = P ( Bᶜ | A ) * P ( A ) = 0.01 * 0.05 = 0.0005");
             } else if (v1.equals("Aᶜ = Το αεροπλάνο ΔΕΝ είναι παρόν") && v2.equals("B = Σωστή ανίχνευση ραντάρ")) {
                 //imageView.setImage(new Image("/images/A2_B1.png"));
-                System.out.println("ERRORRRRRRRRRRR");
-                imageView.setImage(new Image(getClass().getResource("/images/A2_B1").toExternalForm()));
+                //System.out.println("ERRORRRRRRRRRRR");
+
+                URL url = getClass().getResource("/images/A2_B1.png");
+                System.out.println("URL = " + url);
+
+
+                imageView.setImage(new Image(getClass().getResource("/images/A2_B1.png").toExternalForm()));
                 solution_1_9_Text.setText("\n" + //
                                         "Από την εκφώνηση ισχύει ότι P ( B | Aᶜ ) = 0.90\tκαι\t P ( Aᶜ ) = 0.95\tεπομένως:\n" + //
                                         "Όταν ένα αεροσκάφος ΔΕΝ βρίσκεται στην περιοχή του ραντάρ με πιθανότητα 0.95 και\n" + //
@@ -1381,13 +1387,16 @@ public void start(Stage stage) throws IOException {
                                         "P ( B ∩ Aᶜ) = P ( B | Aᶜ ) * P ( Aᶜ ) = 0.90 * 0.95 = 0.855");
             } else if (v1.equals("Aᶜ = Το αεροπλάνο ΔΕΝ είναι παρόν") && v2.equals("Bᶜ = Λάθος ανίχνευση ραντάρ")) {
                 //imageView.setImage(new Image("/images/A2_B2.png"));
-                imageView.setImage(new Image(getClass().getResource("/images/A2_B2").toExternalForm()));
+                imageView.setImage(new Image(getClass().getResource("/images/A2_B2.png").toExternalForm()));
                 solution_1_9_Text.setText("\n" + //
                                         "Από την εκφώνηση ισχύει ότι P ( Bᶜ | Aᶜ ) = 0.10\tκαι\t P ( Aᶜ ) = 0.95\tεπομένως:\n" + //
                                         "Όταν ένα αεροσκάφος ΔΕΝ βρίσκεται στην περιοχή του ραντάρ με πιθανότητα 0.95 και\n" + //
                                         " το ραντάρ ανιχνεύει παρουσία αεροσκάφους (λειτουργεί λάθος) με πιθανότητα 0.10 ,\n" + //
                                         "η πιθανότητα λανθασμένης ένδειξης παρουσίας αεροσκάφους είναι:\n" + //
                                         "P ( Bᶜ ∩ Aᶜ) = P ( Bᶜ | Aᶜ ) * P ( Aᶜ ) = 0.10 * 0.95 = 0.095");
+            }
+            else{
+                System.out.println("WRONG !!!!!!!!!!!!!!!!!");
             }
         }
     }
