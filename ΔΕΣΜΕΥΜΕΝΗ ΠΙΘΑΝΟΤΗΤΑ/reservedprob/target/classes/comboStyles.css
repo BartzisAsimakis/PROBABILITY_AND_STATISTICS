@@ -1,0 +1,103 @@
+/* Εφαρμόζεται ΜΟΝΟ στα ComboBox που είναι παιδιά μέσα σε TextFlow */
+
+.combo-box {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-padding: 0 0 0 0; /* top right bottom left */
+    -fx-effect: null;      /* αφαιρεί drop-shadow / inner shadow */
+    -fx-font-size: 13px;
+    -fx-effect: null;
+    -fx-text-alignment: center;
+    -fx-cursor: hand;
+     -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-control-inner-background: transparent;
+}
+.text-flow {
+    -fx-padding:0 ;
+    -fx-text-alignment: center;
+}
+
+
+
+
+/* Εξαιρέσεις για συγκεκριμένα ComboBox μέσα σε TextFlow */
+
+/* Ειδικά για τα συγκεκριμένα ComboBox (βάφει το control και το editor μέρος) */
+/* Τα combo-box στο TextFlow εκφώνησης (μένουν κόκκινα) */
+.text-flow .combo-box {
+    -fx-background-color: transparent;
+}
+
+/* Ειδικά στο TextFlow λύσης → όλα τα combo-box λευκά */
+#solution_TextFlow .combo-box {
+    -fx-background-color: white;
+    -fx-alignment:inherit ;
+}
+
+
+/* Στυλ για το ίδιο το ComboBox (επικεφαλίδα) */
+.combo-box-base {
+    /*-fx-background-color: maroon; /* Μπορντώ */
+    -fx-text-fill: maroon;          /* Για το κείμενο */
+    -fx-font-weight: bold;
+    /*-fx-padding: 5 0 5 0;*/
+}
+
+/* Κρύψιμο του βελακιού */
+.combo-box .arrow-button,
+.combo-box .arrow {
+    -fx-padding: 0;
+    -fx-shape: "";
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+/* Στυλ για τα στοιχεία της λίστας */
+
+/* Όλα τα list-cell (default στυλ) */
+.list-cell {
+    /*-fx-background-color: lightblue;*/
+    -fx-text-fill: saddlebrown;
+    -fx-font-size: 14px;
+}
+
+/* ΜΟΝΟ τα list-cell μέσα στο radar_dedection_Facts_ComboBox */
+#radar_dedection_Facts_ComboBox .list-cell {
+    -fx-background-color: white;
+    /*-fx-text-fill: black;   /* προαιρετικά, για να φαίνεται σωστά πάνω στο άσπρο */
+}
+
+#airplane_Facts_ComboBox .list-cell {
+    -fx-background-color: white;
+    /*-fx-text-fill: black;   /* προαιρετικά, για να φαίνεται σωστά πάνω στο άσπρο */
+}
+
+
+
+
+.list-cell:hover {
+    -fx-background-color: #f2e6d9; /* Απαλό καφέ φόντο στο hover */
+}
+/* Κείμενο λίστας και επιλεγμένο value στο κέντρο */
+.combo-box .list-cell {
+    -fx-alignment: CENTER;
+    -fx-text-alignment: center;
+}
+
+
+
+
+/* Στυλ για συγκεκριμένα ComboBox που θέλουμε να έχουν λευκό background */
+#airplane_Facts_ComboBox {
+    -fx-background-color: white;
+}
+
+#radar_dedection_Facts_ComboBox {
+    -fx-background-color: white;
+}
+
