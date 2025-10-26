@@ -1361,7 +1361,7 @@ public void start(Stage stage) throws IOException {
                 imageView.setImage(new Image(getClass().getResource("/images/A1_B1.png").toExternalForm()));
                 solution_1_9_Text.setText("\nΑπό την εκφώνηση ισχύει ότι P ( B | A ) = 0.99\tκαι\t P ( A ) = 0.05\tεπομένως:\nΌταν ένα αεροσκάφος βρίσκεται στην περιοχή του ραντάρ με πιθανότητα 0.05 και\n το ραντάρ ανιχνεύει σωστά την παρουσία του με πιθανότητα 0.99 ,\nη πιθανότητα να ανιχνευτεί αεροσκάφος από το ραντάρ είναι:\nP ( B ∩ A) = P ( B | A ) * P ( A ) = 0.99 * 0.05 = 0.0495");
             } else if (v1.equals("A = Το αεροπλάνο είναι παρόν") && v2.equals("Bᶜ = Λάθος ανίχνευση ραντάρ")) {
-                imageView.setImage(new Image("/images/A1_B2.png"));
+                imageView.setImage(new Image(getClass().getResource("/images/A1_B2.png").toExternalForm()));
                 imageView.setFitHeight(220);
                 solution_1_9_Text.setText("\n" + //
                                         "Από την εκφώνηση ισχύει ότι P ( Bᶜ | A ) = 0.01\tκαι\t P ( A ) = 0.05\tεπομένως:\n" + //
@@ -1371,6 +1371,7 @@ public void start(Stage stage) throws IOException {
                                         "P ( Bᶜ ∩ A) = P ( Bᶜ | A ) * P ( A ) = 0.01 * 0.05 = 0.0005");
             } else if (v1.equals("Aᶜ = Το αεροπλάνο ΔΕΝ είναι παρόν") && v2.equals("B = Σωστή ανίχνευση ραντάρ")) {
                 //imageView.setImage(new Image("/images/A2_B1.png"));
+                System.out.println("ERRORRRRRRRRRRR");
                 imageView.setImage(new Image(getClass().getResource("/images/A2_B1").toExternalForm()));
                 solution_1_9_Text.setText("\n" + //
                                         "Από την εκφώνηση ισχύει ότι P ( B | Aᶜ ) = 0.90\tκαι\t P ( Aᶜ ) = 0.95\tεπομένως:\n" + //
