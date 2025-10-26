@@ -206,9 +206,8 @@ public void start(Stage stage) throws IOException {
 
         //System.out.println("sdasdsadsad 5");
 
-        //ImageView imViewAsimakis = new ImageView(new Image("file:C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/BACK_UP_PROJECTS/ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/images/logo.png"));
-        Image img = new Image(getClass().getResource("/images/logo.png").toExternalForm());
-        ImageView imViewAsimakis = new ImageView(img);
+        ImageView imViewAsimakis = new ImageView(new Image("file:/C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/images/logo.png"));
+
         //System.out.println("TEST GUI GUI GUI");
         HBox logoTypeHBox = new HBox(imViewAsimakis);
         logoTypeHBox.setAlignment(Pos.TOP_CENTER);
@@ -806,7 +805,7 @@ public void start(Stage stage) throws IOException {
 
                 update_1_10_Solution(numOfCards_ComboBox, playAgain_ComboBox, numOfHearts_ComboBox);
             }
-            if(newValue == 0){
+            if(newValue == null){
                 whereTheHeartsIs_List.clear();
                 //numOfHearts_ComboBox.getItems().clear();
             }
@@ -968,8 +967,7 @@ public void start(Stage stage) throws IOException {
 
     public void update_1_7_Solution(){
         //solutionTextArea.setText("TEST!!!!!!!!!!!!!!!!!!!!!");
-       // ex_1_10_Map.clear();
-
+        ex_1_10_Map.clear();
         String str = sampleSpace_1_7(4,2).toString();
         str = str.replace('[',' ');
         str = str.replace(']',' ');
@@ -1021,7 +1019,7 @@ public void start(Stage stage) throws IOException {
     }
 
     public void update_1_8_Solution(){
-        runPythonScript();
+        //runPythonScript();
         Path responsesPath = Path.of("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/responses.txt");
         try (BufferedReader reader = Files.newBufferedReader(responsesPath, StandardCharsets.UTF_8)) {
             StringBuilder sb = new StringBuilder();
@@ -1304,7 +1302,7 @@ public void start(Stage stage) throws IOException {
     }
 
     public String facts_AI_answer(){
-         Path responsesPath = Path.of("/responses.txt");
+         Path responsesPath = Path.of("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/responses.txt");
          StringBuilder sb = new StringBuilder();
         try (BufferedReader reader = Files.newBufferedReader(responsesPath, StandardCharsets.UTF_8)) {
 
@@ -1363,7 +1361,7 @@ public void start(Stage stage) throws IOException {
                 imageView.setImage(new Image(getClass().getResource("/images/A1_B1.png").toExternalForm()));
                 solution_1_9_Text.setText("\nΑπό την εκφώνηση ισχύει ότι P ( B | A ) = 0.99\tκαι\t P ( A ) = 0.05\tεπομένως:\nΌταν ένα αεροσκάφος βρίσκεται στην περιοχή του ραντάρ με πιθανότητα 0.05 και\n το ραντάρ ανιχνεύει σωστά την παρουσία του με πιθανότητα 0.99 ,\nη πιθανότητα να ανιχνευτεί αεροσκάφος από το ραντάρ είναι:\nP ( B ∩ A) = P ( B | A ) * P ( A ) = 0.99 * 0.05 = 0.0495");
             } else if (v1.equals("A = Το αεροπλάνο είναι παρόν") && v2.equals("Bᶜ = Λάθος ανίχνευση ραντάρ")) {
-                imageView.setImage(new Image(getClass().getResource("/images/A1_B2.png").toExternalForm()));
+                imageView.setImage(new Image("/images/A1_B2.png"));
                 imageView.setFitHeight(220);
                 solution_1_9_Text.setText("\n" + //
                                         "Από την εκφώνηση ισχύει ότι P ( Bᶜ | A ) = 0.01\tκαι\t P ( A ) = 0.05\tεπομένως:\n" + //
@@ -1372,7 +1370,8 @@ public void start(Stage stage) throws IOException {
                                         "η πιθανότητα το αεροσκάφος να ΜΗΝ ανιχνευτεί από το ραντάρ είναι:\n" + //
                                         "P ( Bᶜ ∩ A) = P ( Bᶜ | A ) * P ( A ) = 0.01 * 0.05 = 0.0005");
             } else if (v1.equals("Aᶜ = Το αεροπλάνο ΔΕΝ είναι παρόν") && v2.equals("B = Σωστή ανίχνευση ραντάρ")) {
-                imageView.setImage(new Image(getClass().getResource("/images/A2_B1.png").toExternalForm()));
+                //imageView.setImage(new Image("/images/A2_B1.png"));
+                imageView.setImage(new Image(getClass().getResource("/images/A2_B1").toExternalForm()));
                 solution_1_9_Text.setText("\n" + //
                                         "Από την εκφώνηση ισχύει ότι P ( B | Aᶜ ) = 0.90\tκαι\t P ( Aᶜ ) = 0.95\tεπομένως:\n" + //
                                         "Όταν ένα αεροσκάφος ΔΕΝ βρίσκεται στην περιοχή του ραντάρ με πιθανότητα 0.95 και\n" + //
@@ -1380,7 +1379,8 @@ public void start(Stage stage) throws IOException {
                                         "η πιθανότητα να ΜΗΝ ανιχνευτεί τίποτα από το ραντάρ είναι:\n" + //
                                         "P ( B ∩ Aᶜ) = P ( B | Aᶜ ) * P ( Aᶜ ) = 0.90 * 0.95 = 0.855");
             } else if (v1.equals("Aᶜ = Το αεροπλάνο ΔΕΝ είναι παρόν") && v2.equals("Bᶜ = Λάθος ανίχνευση ραντάρ")) {
-                imageView.setImage(new Image(getClass().getResource("/images/A2_B2.png").toExternalForm()));
+                //imageView.setImage(new Image("/images/A2_B2.png"));
+                imageView.setImage(new Image(getClass().getResource("/images/A2_B2").toExternalForm()));
                 solution_1_9_Text.setText("\n" + //
                                         "Από την εκφώνηση ισχύει ότι P ( Bᶜ | Aᶜ ) = 0.10\tκαι\t P ( Aᶜ ) = 0.95\tεπομένως:\n" + //
                                         "Όταν ένα αεροσκάφος ΔΕΝ βρίσκεται στην περιοχή του ραντάρ με πιθανότητα 0.95 και\n" + //
