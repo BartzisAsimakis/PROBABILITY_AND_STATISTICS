@@ -1,10 +1,13 @@
 package com.example;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -109,7 +112,7 @@ public class App extends Application {
     Button mainExitButton = new Button("Έξοδος");
     StackPane topicsStackPane = new StackPane();
 
-    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10");
+    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11");
     ComboBox<String> chapter_1_examples_ComboBox = new ComboBox<>(chapter_1_examples_List);
     HBox mainInfos_HBox = new HBox(chapter_1_examples_ComboBox);
 
@@ -118,6 +121,7 @@ public class App extends Application {
     VBox example_1_8_VBox = new VBox();
     VBox example_1_9_VBox = new VBox();
     VBox example_1_10_VBox = new VBox();
+    VBox example_1_11_VBox = new VBox();
 
     TextArea solutionTextArea = new TextArea();
     HBox solutionHBox = new HBox();
@@ -152,37 +156,20 @@ public class App extends Application {
 
     List<Integer> whereTheHeartsIs_List = new ArrayList<>();
 
+    List<String> problems_List = new ArrayList<>();
+
     public final Path problems_FilePath = Path.of("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/problems.txt");
 
     private static Scene scene;
 
    @Override
-public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException {
 
     welcomeGUI();
 
     PauseTransition delay = new PauseTransition(Duration.seconds(7));
     delay.setOnFinished(event -> {
         welcomeStage.close();
-
-        try {
-            File file = new File("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/problems.txt");
-
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            // Αν το αρχείο είναι ΚΕΝΟ → τρέξε το Python script
-            // if (file.length() == 0) {
-            //     System.out.println("Το αρχείο είναι κενό, εκτελείται το Python script...");
-                //runPythonScript();
-            //}// } else {
-            //     System.out.println("Το αρχείο δεν είναι κενό, δεν εκτελείται runPythonScript().");
-            // }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         // Συνέχεια του προγράμματος
         m_value_ComboBox.getItems().addAll(1, 2, 3, 4);
@@ -191,9 +178,58 @@ public void start(Stage stage) throws IOException {
     });
 
     delay.play();
+
+
+
+    // updateProblemToProblemsTXT(1);
+    // runPythonScript();
 }
 
     public void welcomeGUI(){
+
+        String problem_1_8_str = "Από μία συντηρητική ομάδα σχεδίασης, ας την ονομάσουμε C, και μια πρωτοποριακή ομάδα σχεδίασης,"+
+    " ας την ονομάσουμε N,ζητάμε να σχεδιαστεί χωριστά ένα καινούργιο προϊόν μέσα σε ένα μήνα. Από προηγούμενη εμπειρία γνωρίζουμε ότι:" +
+
+                "(α) Η πιθανότητα η μάδα C να είναι επιτυχής είναι 2/3" +
+
+                "(β) Η πιθανότητα η ομάδα N να είναι επιτυχής είναι 1/2" +
+
+                "(γ) Η πιθανότητα τουλάχιστον μία ομάδα να είναι επιτυχής είναι 3/4." +
+
+
+
+               "ΑΙΤΗΜΑ ΠΡΟΣ CHATGPT" +
+
+                "Βρες μου τον δειγματικό χώρο. (Να παράξεις μία μη αριθμημένη λίστα από String που να περιέχει ΜΟΝΟ "+
+                "την περιγραφή των στοιχείων του δειγματικού χώρου, χωρίς καμία επεξήγηση ή αναφορά στις πιθανότητες"+
+                "και στους μαθηματικούς υπολογισμούς. Στην απάντησή σου εμφάνισε ΜΟΝΟ την λύση και ΜΗΝ επαναλαμβάνεις την εκφώνηση του προβλήματος.)\n" ;
+
+    String problem_1_9_str = "Εάν κάποιο αεροσκάφος βρίσκεται σε κάποια περιοχή, ένα ραντάρ " +
+                "καταγράφει σωστά την παρουσία του με πιθανότητα 0.99 ." +
+
+                "Εάν δεν βρίσκεται στην περιοχή, το ραντάρ καταγράφει " +
+                "λανθασμένα την παρουσία του με πιθανότητα 0.10 ." +
+                "Υποθέτουμε ότι ένα αεροσκάφος είναι παρόν με πιθανότητα 0.05 ." +
+                "Ποια είναι η πιθανότητα λανθασμένου συναγερμού (λανθασμένη ένδειξη παρουσίας αεροσκάφους), και " +
+                "ποια είναι η πιθανότητα έλλειψης ανίχνευσης (καμία ανίχνευση δεν γίνεται παρόλο που το αεροπλάνο είναι παρόν); " + "ΑΙΤΗΜΑ ΠΡΟΣ CHATGPT" +
+                "Δώσε μου τα ενδεχόμενα για αεροπλάνο και ραντάρ (χωριστά) MONO, χωρίς εισαγωγικές προτάσεις,να προσδιορίσεις τις πιθανότητες που προκύπτουν. (Όχι πάνω από 200 χαρακτήρες)";
+
+     problems_List.add(problem_1_8_str);
+
+        try (BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream("problems.txt"), StandardCharsets.UTF_8))) {
+            writer.write("1."+problem_1_8_str+"2."+problem_1_9_str);
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    // updateProblemToProblemsTXT(0);
+    // runPythonScript();
+    runSolver(1);
+
+     problems_List.add(problem_1_9_str);
+
+     runSolver(2);
 
         airplane_Facts_ComboBox.setPromptText("ΠΑΡΟΥΣΙΑ ΑΕΡΟΠΛΑΝΟΥ - ΓΕΓΟΝΟΤΑ");
         airplane_Facts_ComboBox.getItems().addAll("A = Το αεροπλάνο είναι παρόν","Aᶜ = Το αεροπλάνο ΔΕΝ είναι παρόν");
@@ -268,7 +304,7 @@ public void start(Stage stage) throws IOException {
         mainButtonsHBox.getChildren().addAll(mainExitButton);
         mainButtonsHBox.setAlignment(Pos.BOTTOM_CENTER);
 
-
+        solutionTextArea.setStyle("-fx-background-color:beige;");
 
         chapter_1_examples_ComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
 
@@ -374,12 +410,25 @@ public void start(Stage stage) throws IOException {
                     StackPane.setAlignment(topicsStackPane, Pos.BOTTOM_CENTER);
                     problemText = "";
 
-
-
                     example_1_10();
                     break;
 
+                case "Παράδειγμα 1.11":
+                    example_1_11_VBox.getChildren().clear();
+                     //runPythonScript();
+                    titleLabel.setText("Κεφάλαιο 1ο - 1.3 ΚΑΝΟΝΑΣ ΠΟΛΛΑΠΛΑΣΙΑΣΜΟΥ");
+                    solutionTextArea.clear();
+                    solution_TextFlow.getChildren().clear();
+                    topicsStackPane.getChildren().clear();
+                    //topicsStackPane.setPrefHeight(100);
+                    stage.setHeight(520);
+                    stage.setWidth(670);
+                    topicsStackPane.getChildren().add(example_1_11_VBox);
+                    StackPane.setAlignment(topicsStackPane, Pos.BOTTOM_CENTER);
+                    problemText = "";
 
+                    example_1_11();
+                    break;
 
                 default:
                     stage.setHeight(930);
@@ -440,8 +489,10 @@ public void start(Stage stage) throws IOException {
     // Ενέργειες κουμπιών
     public void buttonsActions(){
         mainExitButton.setOnAction(e->{
-            clearTextFile("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/problems.txt");
-            clearTextFile("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/responses.txt");
+            // clearTextFile("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/problems.txt");
+            // clearTextFile("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/responses.txt");
+            clearTextFile("problems.txt");
+            clearTextFile("responses.txt");
             //clearResponsesFile();
             System.exit(1);
         });
@@ -539,7 +590,7 @@ public void start(Stage stage) throws IOException {
     }
 
     public void example_1_8(){
-        updateProblemToProblemsTXT();
+        //updateProblemToProblemsTXT();
         TextArea problemTextArea = new TextArea();
         problemTextArea.setWrapText(true);
         problemTextArea.setEditable(false);
@@ -547,19 +598,19 @@ public void start(Stage stage) throws IOException {
 
         solutionTextArea.setStyle("-fx-font-family: 'Courier'; -fx-font-size: 12;");
 
-       Text problem_1_8_Text = new Text();
+       Text problem_1_8_Text = new Text(problemText);
         //Path problemsPath = Path.of(problems_FilePath);
 
-        try (BufferedReader reader = Files.newBufferedReader(problems_FilePath, StandardCharsets.UTF_8)) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            problem_1_8_Text.setText(sb.toString());
-        } catch (IOException e) {
-            problem_1_8_Text.setText("Δεν ήταν δυνατή η ανάγνωση του αρχείου προβλημάτων.");
-        }
+        // try (BufferedReader reader = Files.newBufferedReader(problems_FilePath, StandardCharsets.UTF_8)) {
+        //     StringBuilder sb = new StringBuilder();
+        //     String line;
+        //     while ((line = reader.readLine()) != null) {
+        //         sb.append(line).append("\n");
+        //     }
+        //     problem_1_8_Text.setText(sb.toString());
+        // } catch (IOException e) {
+        //     problem_1_8_Text.setText("Δεν ήταν δυνατή η ανάγνωση του αρχείου προβλημάτων.");
+        // }
 
         // Δεύτερο Text για το επιπλέον κείμενο
         Text problem_1_8b_Text = new Text(
@@ -578,7 +629,7 @@ public void start(Stage stage) throws IOException {
     }
 
     public void example_1_9(){
-        updateProblemToProblemsTXT();
+        //updateProblemToProblemsTXT(1);
         Text example_1_9_Text = new Text(problemText);
         example_1_9_Text.setStyle("-fx-font-size:12px;");
         TextFlow example_1_9_TextFlow = new TextFlow(example_1_9_Text);
@@ -647,7 +698,7 @@ public void start(Stage stage) throws IOException {
 
 
 
-        updateProblemToProblemsTXT();
+        //updateProblemToProblemsTXT();
         update_1_10_Solution(numOfCards_ComboBox,playAgain_ComboBox,numOfHearts_ComboBox);
 
         // playAgain_ComboBox.valueProperty().addListener((obs,oldValue,newValue)->{
@@ -661,8 +712,9 @@ public void start(Stage stage) throws IOException {
                     numOfHearts_ComboBox.getItems().clear();
                 }
 
-
+                numOfHearts_ComboBox.getItems().clear();
                 for (int i = 0; i <= newValue; i++) {
+
                     numOfHearts_ComboBox.getItems().add(i);
                 }
                 numOfHearts_ComboBox.setValue(0);
@@ -682,8 +734,8 @@ public void start(Stage stage) throws IOException {
 
                 double stageHeight = 0;
 
-                VBox chooseWitchCard_VBox = new VBox(15);
-                chooseWitchCard_VBox.setAlignment(Pos.TOP_CENTER);
+                VBox choosewichCard_VBox = new VBox(15);
+                choosewichCard_VBox.setAlignment(Pos.TOP_CENTER);
 
                 Label miniTitle_Label = new Label("Επιλογή κούπας");
                 HBox miniTitle_HBox = new HBox(miniTitle_Label);
@@ -693,14 +745,14 @@ public void start(Stage stage) throws IOException {
                 miniTitle_HBox.setPrefHeight(25);
                 miniTitle_HBox.setStyle("-fx-background-color: orange;");
 
-                chooseWitchCard_VBox.getChildren().add(miniTitle_HBox);
+                choosewichCard_VBox.getChildren().add(miniTitle_HBox);
 
             //====================================================================================================================================
                 List<ComboBox<Integer>> choosenHearts_ComboBox_List = new ArrayList<>();
 
                 for(int j = 0; j < numOfHearts_ComboBox.getValue(); j++){
-                    HBox chooseWitchCard_HBox = new HBox(5);
-                    chooseWitchCard_HBox.setAlignment(Pos.CENTER);
+                    HBox choosewichCard_HBox = new HBox(5);
+                    choosewichCard_HBox.setAlignment(Pos.CENTER);
                     Label choose_Label = new Label("Επίλεξε τη θέση της κούπας "+(j+1));
                     //System.out.println("DONE_a"+(j+1));
                     ComboBox<Integer> heartCards_ComboBox = new ComboBox<>();
@@ -713,13 +765,13 @@ public void start(Stage stage) throws IOException {
 
                     heartCards_ComboBox.setPromptText("-");
                     heartCards_ComboBox.setStyle("-fx-background-color:transparent;");
-                    chooseWitchCard_HBox.getChildren().addAll(choose_Label, heartCards_ComboBox);
+                    choosewichCard_HBox.getChildren().addAll(choose_Label, heartCards_ComboBox);
                     choosenHearts_ComboBox_List.add(heartCards_ComboBox);
                     if(j > 0){
                         stageHeight += 40.0;
                     }
 
-                    chooseWitchCard_VBox.getChildren().add(chooseWitchCard_HBox);
+                    choosewichCard_VBox.getChildren().add(choosewichCard_HBox);
                     whereTheHeartsIs_List.clear();
 
                     heartCards_ComboBox.valueProperty().addListener((observable,val1,val2)->{
@@ -745,20 +797,20 @@ public void start(Stage stage) throws IOException {
 
 
 
-                chooseWitchCard_VBox.getChildren().add(chooseHeartCardButton_HBox);
+                choosewichCard_VBox.getChildren().add(chooseHeartCardButton_HBox);
 
-                chooseWitchCard_VBox.setAlignment(Pos.TOP_CENTER);
+                choosewichCard_VBox.setAlignment(Pos.TOP_CENTER);
 
                 double vbox_height = stageHeight+165;
-                chooseWitchCard_VBox.setPrefHeight(vbox_height);
+                choosewichCard_VBox.setPrefHeight(vbox_height);
 
 
 
                 // === ΣΚΗΝΗ & ΠΑΡΑΘΥΡΟ ===
-                Stage chooseWitchCard_Stage = new Stage();
-                Scene chooseWitchCard_Scene = new Scene(chooseWitchCard_VBox, 350, vbox_height+15);
-                chooseWitchCard_Scene.getStylesheets().add(getClass().getResource("/comboStyles.css").toExternalForm());
-                chooseWitchCard_VBox.setStyle(
+                Stage choosewichCard_Stage = new Stage();
+                Scene choosewichCard_Scene = new Scene(choosewichCard_VBox, 350, vbox_height+15);
+                choosewichCard_Scene.getStylesheets().add(getClass().getResource("/comboStyles.css").toExternalForm());
+                choosewichCard_VBox.setStyle(
                     "-fx-background-color: lightblue; " +
                 /*  "-fx-padding: 10px; " +*/
                     "-fx-background-radius: 40px; " +
@@ -773,36 +825,36 @@ public void start(Stage stage) throws IOException {
 
                     heartsUpdateProb(playAgain_ComboBox.getValue());
 
-                    chooseWitchCard_Stage.close();
+                    choosewichCard_Stage.close();
                 });
-                chooseWitchCard_Scene.setFill(Color.TRANSPARENT);
+                choosewichCard_Scene.setFill(Color.TRANSPARENT);
 
-                chooseWitchCard_Stage.initStyle(StageStyle.TRANSPARENT);
+                choosewichCard_Stage.initStyle(StageStyle.TRANSPARENT);
 
 
-                chooseWitchCard_Stage.initModality(Modality.WINDOW_MODAL);
-                chooseWitchCard_Stage.initOwner(((Stage) numOfHearts_ComboBox.getScene().getWindow()));
+                choosewichCard_Stage.initModality(Modality.WINDOW_MODAL);
+                choosewichCard_Stage.initOwner(((Stage) numOfHearts_ComboBox.getScene().getWindow()));
 
-                chooseWitchCard_Stage.setScene(chooseWitchCard_Scene);
-                chooseWitchCard_Stage.setTitle("Επιλογή Κάρτας");
+                choosewichCard_Stage.setScene(choosewichCard_Scene);
+                choosewichCard_Stage.setTitle("Επιλογή Κάρτας");
 
                 Rectangle clip = new Rectangle(335, vbox_height);
                 clip.setArcWidth(80);
                 clip.setArcHeight(80);
-                chooseWitchCard_VBox.setClip(clip);
+                choosewichCard_VBox.setClip(clip);
 
                 // Προσαρμογή του clip στο μέγεθος της σκηνής
-                chooseWitchCard_VBox.layoutBoundsProperty().addListener((observable, oldVal, newVal) -> {
+                choosewichCard_VBox.layoutBoundsProperty().addListener((observable, oldVal, newVal) -> {
                     clip.setWidth(newVal.getWidth());
                     clip.setHeight(newVal.getHeight());
                 });
 
 
                 cancel_Button.setOnAction(e->{
-                    chooseWitchCard_Stage.close();
+                    choosewichCard_Stage.close();
                 });
 
-                chooseWitchCard_Stage.showAndWait();
+                choosewichCard_Stage.showAndWait();
 
                 update_1_10_Solution(numOfCards_ComboBox, playAgain_ComboBox, numOfHearts_ComboBox);
             }
@@ -811,6 +863,31 @@ public void start(Stage stage) throws IOException {
                 //numOfHearts_ComboBox.getItems().clear();
             }
         });
+
+    }
+
+    public void example_1_11(){
+        prob_ListToFraction.clear();
+        Text problem_1_11_Text_a = new Text("Μία τάξη που αποτελείται από 4 μεταπτυχιακούς και");
+
+        ComboBox<Integer> numOf_ProStudents_ComboBox = new ComboBox<>();
+        numOf_ProStudents_ComboBox.getItems().addAll(8,12,16);
+        numOf_ProStudents_ComboBox.setPrefHeight(10);
+        numOf_ProStudents_ComboBox.setValue(12);
+
+        Text problem_1_11_Text_b = new Text("προπτυχιακούς φοιτητές, χωρίζεται τυχαία σε 4 ισάριθμες ομάδες. Ποια είναι η πιθανότητα η κάθε ομάδα να περιλαμβάνει ένα μεταπτυχιακό φοιτητή; "+
+        "Με την λέξη τυχαία εννοούμε ότι δεδομένης της τοποθέτησης μερικών φοιτητών σε κάποιες κενές θέσεις,\n"+
+        "οποιοσδήποτε φοιτητής που απομένει έχει ίση πιθανότητα να τοποθετηθεί σε οποιαδήποτε από τις υπολειπόμενες θέσεις.");
+
+        TextFlow problem_1_11_TextFlow = new TextFlow(problem_1_11_Text_a,numOf_ProStudents_ComboBox,problem_1_11_Text_b);
+
+        problem_1_11_TextFlow.setStyle("-fx-font-size:13px;");
+
+        problem_1_11_TextFlow.setPadding(new Insets(15,15,15,15));
+
+        example_1_11_VBox.getChildren().add(problem_1_11_TextFlow);
+
+
 
     }
 
@@ -1021,14 +1098,30 @@ public void start(Stage stage) throws IOException {
 
     public void update_1_8_Solution(){
         //runPythonScript();
-        Path responsesPath = Path.of("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/responses.txt");
+        Path responsesPath = Path.of("responses.txt");
         try (BufferedReader reader = Files.newBufferedReader(responsesPath, StandardCharsets.UTF_8)) {
+            Boolean startReading = false;
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\n");
+
+                if (!startReading && line.startsWith("1")) {
+                    startReading = true;
+                }
+
+                if(startReading && line.startsWith("2")){
+                    break;
+                }
+
+                // Αν δεν έχουμε βρει ακόμα τη γραμμή που αρχίζει με "1", συνέχισε να διαβάζεις
+                if (!startReading) {
+                    continue;
+                }
+
+                line = line.substring(2);
                 line = line.replace('-', ' ');
                 line = line.trim();
+                sb.append(line).append("\n");
                 results_1_8_ComboBox.getItems().add(line);
             }
 
@@ -1074,13 +1167,43 @@ public void start(Stage stage) throws IOException {
     public void update_1_9_Solution(){
 
         //runPythonScript();
+        StringBuilder sb = new StringBuilder();
+        int line_sum = 0;
+
+        Path responsesPath = Path.of("responses.txt");
+        try (BufferedReader reader = Files.newBufferedReader(responsesPath, StandardCharsets.UTF_8)) {
+            Boolean startReading = false;
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                if (!startReading && line.startsWith("2")) {
+                    startReading = true;
+                    line = line.substring(2);
+                }
+
+                // Αν δεν έχουμε βρει ακόμα τη γραμμή που αρχίζει με "1", συνέχισε να διαβάζεις
+                if (!startReading) {
+                    continue;
+                }
+
+
+
+                //line = line.replace('-', ' ');
+                line = line.trim();
+                sb.append(line).append("\n");
+                //results_1_8_ComboBox.getItems().add(line);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
         solutionHBox.getChildren().clear();
         solution_TextFlow.setStyle("-fx-background-color: white;");
 
         HBox facts_HBox = new HBox(30);
 
-        Text facts_AI_Text = new Text("ΒΟΗΘΕΙΑ AI\n"+facts_AI_answer());
+        Text facts_AI_Text = new Text("ΒΟΗΘΕΙΑ AI\n"+sb.toString());
 
         System.out.println(facts_AI_Text.toString());
 
@@ -1303,7 +1426,7 @@ public void start(Stage stage) throws IOException {
     }
 
     public String facts_AI_answer(){
-         Path responsesPath = Path.of("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/responses.txt");
+         Path responsesPath = Path.of("responses.txt");
          StringBuilder sb = new StringBuilder();
         try (BufferedReader reader = Files.newBufferedReader(responsesPath, StandardCharsets.UTF_8)) {
 
@@ -1452,7 +1575,7 @@ public void start(Stage stage) throws IOException {
     }
 
     public void clearResponsesFile() {
-        File file = new File("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/responses.txt");
+        File file = new File("C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/BACK_UP_PROJECTS/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΟ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/responses.txt");
         try (FileWriter fw = new FileWriter(file, false)) {
             //false = overwrite mode (διαγράφει τα παλιά περιεχόμενα)
             fw.write("");
@@ -1510,7 +1633,8 @@ public void start(Stage stage) throws IOException {
 private void runPythonScript() {
     try {
         // Ορισμός διαδρομής του Python script
-        String pythonScript = "C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/open_AI_pro1.py";
+
+        String pythonScript = "C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/BACK_UP_PROJECTS/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΟ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/open_AI_pro1.py";
 
         // Δημιουργία ProcessBuilder
         ProcessBuilder pb = new ProcessBuilder("python", pythonScript);
@@ -1615,12 +1739,12 @@ private void runPythonScript() {
                     else{
                          newVal = 0.25;
                     }
-                    System.out.println("ΝΕΑ ΤΙΜΗ: "+newVal+'\n'+doubleToFraction(newVal));
+                    //System.out.println("ΝΕΑ ΤΙΜΗ: "+newVal+'\n'+doubleToFraction(newVal));
                     prob_ListToFraction.set(i, newVal);
                     probability = newVal;
                     q2--;
                     flag = false;
-                    System.out.println("FLAG = "+flag);
+                    //System.out.println("FLAG = "+flag);
 
                 }
                 else{
@@ -1637,7 +1761,22 @@ private void runPythonScript() {
             }
 
 
-         System.out.println("NEW PROBS ---> "+prob_ListToFraction);
+         //System.out.println("NEW PROBS ---> "+prob_ListToFraction);
+    }
+
+    // ΣΥΝΑΡΤΗΣΗ ΕΠΙΚΟΙΝΩΝΙΑΣ ΜΕ ΠΡΟΓΡΑΜΜΑ PYTHON
+    public  void runSolver(int problemNumber) {
+        try {
+            // Εκτέλεση Python script με το πρόβλημα
+            ProcessBuilder pb = new ProcessBuilder("python", "C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/BACK_UP_PROJECTS/ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/solver.py", String.valueOf(problemNumber));
+            pb.inheritIO(); // Εμφάνιση εξόδου στην κονσόλα
+            Process process = pb.start();
+            process.waitFor();
+
+            System.out.println("Η επίλυση ολοκληρώθηκε!");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 

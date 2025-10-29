@@ -5,9 +5,11 @@ import sys
 
 client = OpenAI()
 
+
+
 # Διαβάζουμε το πρόβλημα
-problem_path = r"C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/problems.txt"
-responses_path = r"C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/ΠΤΥΧΙΟ -ΒΟΗΘΗΤΙΚΑ/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΑΣΙΕΣ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/responses.txt"
+problem_path = r"C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/BACK_UP_PROJECTS/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΟ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/problems.txt"
+responses_path = r"C:/Users/Asimakis/Documents/ΠΑΝΕΠΙΣΤΗΜΙΟ/BACK_UP_PROJECTS/ΠΙΘΑΝΟΤΗΤΕΣ _ ΕΡΓΟ/ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ/reservedprob/responses.txt"
 
 try:
     with open(problem_path, "r", encoding="utf-8") as f:
