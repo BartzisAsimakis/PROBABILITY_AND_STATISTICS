@@ -421,8 +421,8 @@ public class App extends Application {
                     solution_TextFlow.getChildren().clear();
                     topicsStackPane.getChildren().clear();
                     //topicsStackPane.setPrefHeight(100);
-                    stage.setHeight(520);
-                    stage.setWidth(670);
+                    stage.setHeight(560);
+                    stage.setWidth(770);
                     topicsStackPane.getChildren().add(example_1_11_VBox);
                     StackPane.setAlignment(topicsStackPane, Pos.BOTTOM_CENTER);
                     problemText = "";
@@ -868,10 +868,11 @@ public class App extends Application {
 
     public void example_1_11(){
         prob_ListToFraction.clear();
+        solutionHBox.getChildren().clear();
         Text problem_1_11_Text_a = new Text("Μία τάξη που αποτελείται από 4 μεταπτυχιακούς και");
 
         ComboBox<Integer> numOf_ProStudents_ComboBox = new ComboBox<>();
-        numOf_ProStudents_ComboBox.getItems().addAll(8,12,16);
+        numOf_ProStudents_ComboBox.getItems().addAll(8,12,16,24);
         numOf_ProStudents_ComboBox.setPrefHeight(10);
         numOf_ProStudents_ComboBox.setValue(12);
 
@@ -887,7 +888,11 @@ public class App extends Application {
 
         example_1_11_VBox.getChildren().add(problem_1_11_TextFlow);
 
+        numOf_ProStudents_ComboBox.valueProperty().addListener((obs,oldValue,newValue)->{
+            update_1_11_Solution(numOf_ProStudents_ComboBox);
+        });
 
+        update_1_11_Solution(numOf_ProStudents_ComboBox);
 
     }
 
@@ -1416,6 +1421,76 @@ public class App extends Application {
         solutionVBox_1_10.getChildren().add(solution_1_10b_HBox);
         solutionHBox.setAlignment(Pos.CENTER);
         solutionHBox.getChildren().add(solutionVBox_1_10);
+    }
+
+    public void update_1_11_Solution(ComboBox<Integer> numOf_Studies_combo) {
+        solutionHBox.getChildren().clear();
+
+        Label start_solution_1_11_Label = new Label(
+            "Η πιθανότητα ο πρώτος μεταπτυχιακός φοιτητής που θα τοποθετηθεί, να \n" +
+            "τοποθετηθεί σε ομάδα που δεν περιέχει άλλον μεταπτυχιακό φοιτητή είναι:\n P (A1) = 1"
+        );
+        start_solution_1_11_Label.setPadding(new Insets(0, 15, 0, 15));
+
+        HBox start_solution_1_11_HBox = new HBox(start_solution_1_11_Label);
+        start_solution_1_11_HBox.setMinHeight(80);
+        start_solution_1_11_HBox.setAlignment(Pos.CENTER);
+        start_solution_1_11_HBox.setStyle(
+            "-fx-background-color: wheat; " +
+            "-fx-background-radius: 60px; " +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 10, 0.3, 0, 0); " +
+            "-fx-font-size: 12px;"
+        );
+
+        Text solution_1_11_Text = new Text("\nΕπομένως οι αντίστοιχες πιθανότητες για τους υπόλοιπους μεταπτυχιακούς φοιτητές,\n" +
+                "βάση των κενών θέσεων όπως προκύπτουν κατά την διάρκεια του πειράματος, έχουν ως εξής:");
+
+        int numUndergrads = numOf_Studies_combo.getValue();
+        int totalSeats = numUndergrads + 4;                // σύνολο θέσεων
+        int teamSize = totalSeats / 4;                     // μέγεθος ομάδας
+
+        solution_1_11_Text.setText(solution_1_11_Text.getText() +
+                "\nΔιαθέσιμες θέσεις αρχικά: " + totalSeats +
+                "\nΔιαθέσιμες θέσεις μετά την τοποθέτηση του 1ου μετ/κου φοιτητή: " + (totalSeats - 1));
+
+        String str = "";
+        double multNum = 1;
+        String praxis_str = "";
+
+
+        for (int i = 2; i <= 4; i++) {
+
+            int freeGroups = 4 - (i - 1);
+            int availableSeats = freeGroups * teamSize; // διαθέσιμες θέσεις σε ελεύθερες ομάδες
+            int remainingSeats = totalSeats - (i - 1); // συνολικές εναπομείνασες θέσεις
+
+            double prob = (double) availableSeats / remainingSeats;
+            multNum *= prob;
+
+            String sstr = "";
+            for (int k = 1; k <= i; k++) sstr += k + ",";
+
+            str += "\nA" + i + " = {Μετά την τοποθέτηση του " + i + "ου μετ/κου φοιτητή, οι μετ/κοι φοιτητές " +
+                    sstr + " είναι σε διαφορετικές ομάδες} ------> P(A" + i + ") = " + doubleToFraction(prob);
+
+            praxis_str += doubleToFraction(prob) + " * ";
+        }
+
+        praxis_str = praxis_str.substring(0, praxis_str.length() - 2);
+
+        String multNum_s = String.format("%.4f", multNum);
+        String newstr = String.format("%.2f", multNum * 100);
+        String stringMult = multNum_s + " ή " + newstr + "%";
+
+        str += "\n\n\t\t\t\tΖΗΤΟΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ = " + praxis_str + " = " + stringMult;
+
+        solution_1_11_Text.setText(solution_1_11_Text.getText() + str);
+
+        VBox solution_1_11_VBox = new VBox(10, start_solution_1_11_HBox, solution_1_11_Text);
+        solutionHBox.setAlignment(Pos.CENTER);
+        solutionHBox.getChildren().addAll(solution_1_11_VBox);
+
+
     }
 
     private void updateFactsText() {
