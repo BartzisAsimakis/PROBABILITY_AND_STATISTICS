@@ -112,7 +112,7 @@ public class App extends Application {
     Button mainExitButton = new Button("Έξοδος");
     StackPane topicsStackPane = new StackPane();
 
-    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11");
+    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11","Παράδειγμα 1.12");
     ComboBox<String> chapter_1_examples_ComboBox = new ComboBox<>(chapter_1_examples_List);
     HBox mainInfos_HBox = new HBox(chapter_1_examples_ComboBox);
 
@@ -429,6 +429,32 @@ public class App extends Application {
 
                     example_1_11();
                     break;
+
+                case "Παράδειγμα 1.12":
+
+                    String pythonPath = "C:\\Users\\Asimakis\\Documents\\ΠΑΝΕΠΙΣΤΗΜΙΟ\\BACK_UP_PROJECTS\\ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ\\MontyHall_GUI_Tkinter.py";
+
+                    ProcessBuilder pb = new ProcessBuilder("python", pythonPath);
+                    pb.redirectErrorStream(true);
+
+                    try {
+                        Process process = pb.start();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
+
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println("[PYTHON] " + line);
+                        }
+
+                        process.waitFor();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+
+                    break;
+
 
                 default:
                     stage.setHeight(930);
@@ -1457,6 +1483,9 @@ public class App extends Application {
         double multNum = 1;
         String praxis_str = "";
 
+        double testRecur = probabilityRecursive(4, totalSeats, teamSize);
+
+        System.out.println("ΑΝΑΔΡΟΜΙΚΑ ----> P = "+testRecur);
 
         for (int i = 2; i <= 4; i++) {
 
@@ -1853,6 +1882,26 @@ private void runPythonScript() {
             e.printStackTrace();
         }
     }
+
+    // Αναδρομικός υπολογισμός πιθανοτητας - Παραδειγμα 1.11
+    public double probabilityRecursive(int i, int totalSeats, int teamSize) {
+        // Βάση αναδρομής: ο πρώτος μεταπτυχιακός μπορεί να πάει οπουδήποτε
+        if (i == 1) {
+            return 1.0;
+        }
+
+        // Πόσες ομάδες είναι ακόμα ελεύθερες
+        int freeGroups = 4 - (i - 1);
+        // Πόσες θέσεις μένουν συνολικά
+        int remainingSeats = totalSeats - (i - 1);
+
+        // Πιθανότητα ο i-οστός να πάει σε νέα ομάδα
+        double probCurrent = (double) (freeGroups * teamSize) / remainingSeats;
+
+        // Αναδρομική κλήση για τα προηγούμενα βήματα
+        return probCurrent * probabilityRecursive(i - 1, totalSeats, teamSize);
+    }
+
 
 
 
