@@ -41,8 +41,8 @@ class MontyHallPremium:
         self.small_font = font.Font(size=10)
 
         # initial window size and center
-        self.win_width = 1000
-        self.win_height = 620
+        self.win_width = 800
+        self.win_height = 920
         center_window(root, self.win_width, self.win_height)
 
         # state
@@ -60,15 +60,15 @@ class MontyHallPremium:
         top = ttk.Frame(root, padding=10)
         top.pack(side=tk.TOP, fill=tk.X)
 
-        title_lbl = ttk.Label(top, text="Monty Hall — Παράδειγμα (Premium)", font=self.title_font)
-        title_lbl.pack(side=tk.LEFT, padx=(4,20))
+        title_lbl = ttk.Label(top, text="Monty Hall — Παράδειγμα (Premium)\n", font=self.title_font)
+        title_lbl.pack(padx=(4,20))
 
         controls = ttk.Frame(top)
-        controls.pack(side=tk.RIGHT)
+        controls.pack(side=tk.TOP)
 
         ttk.Label(controls, text="Αριθμός πόρτων:", font=self.small_font).grid(row=0, column=0, sticky="e")
         self.spin = ttk.Spinbox(controls, from_=3, to=50, textvariable=self.num_doors,
-                                width=5, command=self.reset_board, font=self.small_font)
+                                width=7, command=self.reset_board, font=self.small_font)
         self.spin.grid(row=0, column=1, padx=6)
 
         ttk.Button(controls, text="Νέο Παιχνίδι", command=self.reset_board).grid(row=0, column=2, padx=6)
@@ -83,16 +83,16 @@ class MontyHallPremium:
 
         # ---- left: board ----
         board_panel = ttk.Frame(content)
-        board_panel.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        board_panel.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
-        board_label = ttk.Label(board_panel, text="Πόρτες", font=self.large_font)
+        board_label = ttk.Label(board_panel, font=self.large_font)
         board_label.pack(anchor='nw')
 
         self.board_frame = ttk.Frame(board_panel, padding=8, relief=tk.FLAT)
         self.board_frame.pack(fill=tk.BOTH, expand=True)
 
         # ---- right: info & actions ----
-        right_panel = ttk.Frame(content, width=320)
+        right_panel = ttk.Frame(content, width=520)
         right_panel.pack(side=tk.RIGHT, fill=tk.Y)
 
         # status
@@ -101,15 +101,17 @@ class MontyHallPremium:
 
         # probabilities box (premium look)
         prob_frame = ttk.LabelFrame(right_panel, text="Ανάλυση Πιθανοτήτων", padding=8)
-        prob_frame.pack(fill=tk.X, pady=(0,8))
+        prob_frame.config(width=500)   # ή όποιο πλάτος θες
+        prob_frame.pack(pady=(0,8), anchor='center')
 
-        self.prob_text = tk.Text(prob_frame, height=10, width=38, wrap='word', font=self.small_font, state='disabled', bg="#f7f7f7")
+
+        self.prob_text = tk.Text(prob_frame, height=10, width=118, font=self.small_font, state='disabled', bg="#f7f7f7")
         self.prob_text.pack(fill=tk.X)
 
         # rule explanation (multiplication rule)
         rule_frame = ttk.LabelFrame(right_panel, text="Κανόνας Πολλαπλασιασμού — Ερμηνεία", padding=8)
         rule_frame.pack(fill=tk.X, pady=(0,8))
-        self.rule_lbl = ttk.Label(rule_frame, text="Ο κανόνας πολλαπλασιασμού: P(A∩B) = P(A)·P(B|A)\nΕδώ τον χρησιμοποιούμε για να εξηγήσουμε γιατί το switch έχει μεγαλύτερη πιθανότητα.", wraplength=300, font=self.small_font)
+        self.rule_lbl = ttk.Label(rule_frame, text="Ο κανόνας πολλαπλασιασμού: P(A∩B) = P(A)·P(B|A)\nΕδώ τον χρησιμοποιούμε για να εξηγήσουμε γιατί το switch έχει μεγαλύτερη πιθανότητα.", wraplength=600, font=self.small_font)
         self.rule_lbl.pack()
 
         # actions
@@ -193,7 +195,7 @@ class MontyHallPremium:
         self.status_label.config(text=f'Επιλέξατε πόρτα {i+1}. Ο host ανοίγει πόρτες με κατσίκες...')
         self.update_probabilities()
         # host opens doors after short delay (for animation)
-        self.root.after(700, self.host_open_doors)
+        self.root.after(10000, self.host_open_doors)
 
     def host_open_doors(self):
         n = len(self.door_buttons)
@@ -201,11 +203,15 @@ class MontyHallPremium:
 
         # decide which to open
         if self.leave_one_other.get():
-            if len(can_open) > 1:
-                keep_closed = random.choice(can_open)
+    # ΚΛΑΣΙΚΟ ΜΟΝΤΥ ΧΩΡΙΣ ΛΑΘΟΣ
+            if self.player_choice != self.car_door:
+                # Αν ο παίκτης διάλεξε λάθος, η ΜΟΝΗ πόρτα που μένει είναι αυτή με το αυτοκίνητο
+                keep_closed = self.car_door
                 to_open = [d for d in can_open if d != keep_closed]
             else:
-                to_open = can_open
+                # Αν ο παίκτης διάλεξε το αυτοκίνητο, τότε μένει τυχαία μία λάθος πόρτα
+                keep_closed = random.choice(can_open)
+                to_open = [d for d in can_open if d != keep_closed]
         else:
             open_count = max(1, len(can_open)//2)
             to_open = random.sample(can_open, open_count)
@@ -320,6 +326,7 @@ class MontyHallPremium:
                    f"- Κάθε πόρτα έχει P = 1/{n} = {1/n:.4f}\n"
                    f"- Συνολική P(όχι η επιλεγμένη) = {(n-1)}/{n} = {(n-1)/n:.4f}\n\n"
                    f"Εξηγούμε με τον Κανόνα Πολλαπλασιασμού όταν ο host ανοίξει πόρτες.\n")
+
             self.prob_text.insert(tk.END, txt)
             self.prob_text.config(state='disabled')
             return
@@ -327,13 +334,22 @@ class MontyHallPremium:
         # μετά την επιλογή αλλά προτού ανοίξει ο host
         if len(self.opened_doors) == 0:
             txt = (f"Μετά την επιλογή πόρτας (αλλά πριν ο host ανοίξει):\n"
-                   f"- P(η αρχική πόρτα έχει αυτοκίνητο) = 1/{n} = {1/n:.4f}\n"
-                   f"- P(το αυτοκίνητο βρίσκεται σε κάποια από τις υπόλοιπες πόρτες) = {(n-1)}/{n} = {(n-1)/n:.4f}\n\n"
-                   f"Αφού ο host ανοίξει πόρτες με σίγουρα κατσίκες, οι πιθανότητες αναδιανέμονται —\n"
-                   f"ο Κανόνας Πολλαπλασιασμού εξηγεί το γιατί το 'switch' κερδίζει περισσότερο.\n")
+                f"- P(η αρχική πόρτα έχει αυτοκίνητο) = 1/{n} = {1/n:.4f}\n"
+                f"- P(το αυτοκίνητο βρίσκεται σε κάποια από τις υπόλοιπες πόρτες) = {(n-1)}/{n} = {(n-1)/n:.4f}\n\n"
+                f"Αφού ο host ανοίξει πόρτες με σίγουρα κατσίκες, οι πιθανότητες αναδιανέμονται —\n"
+                f"ο Κανόνας Πολλαπλασιασμού εξηγεί το γιατί το 'switch' κερδίζει περισσότερο.\n")
+
+            self.prob_text.config(state='normal')
+            self.prob_text.delete('1.0', tk.END)
             self.prob_text.insert(tk.END, txt)
             self.prob_text.config(state='disabled')
+
+            # ΧΡΗΣΙΜΟΠΟΙΕΙ ΟΠΟΙΟ WIDGET ΥΠΑΡΧΕΙ
+            self.prob_text.after(10000, lambda: None)
+
             return
+
+
 
         # μετά το άνοιγμα από τον host
         remaining_closed = [i for i in range(n) if i not in self.opened_doors]
@@ -344,7 +360,7 @@ class MontyHallPremium:
         p_not_initial = (n-1) / n
 
         # If host leaves exactly one other closed (classic), then switching gives full p_not_initial to that single door.
-        if self.leave_one_other.get() and remaining_count == 2:
+        if self.leave_one_other.get() and remaining_count == 3:
             # find the other closed door index
             other = [i for i in remaining_closed if i != self.player_choice][0]
             txt = (f"Μετά το άνοιγμα θυρών (κλασικό σενάριο - έμεινε 1 άλλη κλειστή):\n"

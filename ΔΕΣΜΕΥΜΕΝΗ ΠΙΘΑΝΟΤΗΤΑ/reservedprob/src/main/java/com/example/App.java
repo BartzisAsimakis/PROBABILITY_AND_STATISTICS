@@ -21,6 +21,7 @@ import java.util.Random;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -432,28 +433,34 @@ public class App extends Application {
 
                 case "Παράδειγμα 1.12":
 
-                    String pythonPath = "C:\\Users\\Asimakis\\Documents\\ΠΑΝΕΠΙΣΤΗΜΙΟ\\BACK_UP_PROJECTS\\ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ\\MontyHall_GUI_Tkinter.py";
+    stage.hide();
 
-                    ProcessBuilder pb = new ProcessBuilder("python", pythonPath);
-                    pb.redirectErrorStream(true);
+    String pythonPath = "C:\\Users\\Asimakis\\Documents\\ΠΑΝΕΠΙΣΤΗΜΙΟ\\BACK_UP_PROJECTS\\ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ\\MontyHall_GUI_Tkinter.py";
 
-                    try {
-                        Process process = pb.start();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
+    ProcessBuilder pb = new ProcessBuilder("python", pythonPath);
+    pb.redirectErrorStream(true);
 
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            System.out.println("[PYTHON] " + line);
-                        }
+    try {
+        Process process = pb.start();
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(process.getInputStream(), "UTF-8"));
 
-                        process.waitFor();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println("[PYTHON] " + line);
+        }
 
+        // Περιμένουμε το κλείσιμο του Python παραθύρου
+        process.waitFor();
 
+        // >>> ΕΔΩ ΕΠΑΝΕΜΦΑΝΙΖΕΤΑΙ ΤΟ STAGE <<<
+        Platform.runLater(() -> stage.show());
 
-                    break;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    break;
 
 
                 default:
