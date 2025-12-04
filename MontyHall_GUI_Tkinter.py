@@ -20,6 +20,28 @@ from tkinter import ttk, messagebox, font
 import random
 import threading
 import time
+from openai import OpenAI
+import sys
+
+
+#print(sys.executable)  # για έλεγχο ποια Python τρέχει
+
+
+client = OpenAI()
+
+response = client.responses.create(
+    model="gpt-4o-mini",
+    input="Μία ιστορική πληροφορία για το παράδοξο του Monty Hall μέχρι 80 χαρακτήρες"
+)
+
+answer = response.output_text
+print(answer)
+
+
+
+# except Exception as e:
+#     with open(responses_path, "w", encoding="utf-8") as f:
+#         f.write(f"Σφάλμα κατά την εκτέλεση του ChatGPT API: {e}")
 
 # ---------- Helpers ----------
 def center_window(root, width, height):
@@ -31,14 +53,19 @@ def center_window(root, width, height):
 # ---------- Main GUI ----------
 class MontyHallPremium:
     def __init__(self, root):
+        style = ttk.Style()
+        style.configure(".", background="lightblue")  # Το "." εφαρμόζεται σε όλα τα ttk widgets
+
         self.root = root
         root.title("Monty Hall — Premium Demo")
+        root.configure(bg="orange")  # ή root["bg"] = "lightblue"
         # styling & fonts
         self.base_font = font.nametofont("TkDefaultFont")
         self.base_font.configure(size=11)
         self.title_font = font.Font(size=14, weight="bold")
         self.large_font = font.Font(size=12)
         self.small_font = font.Font(size=10)
+
 
         # initial window size and center
         self.win_width = 800
@@ -60,7 +87,7 @@ class MontyHallPremium:
         top = ttk.Frame(root, padding=10)
         top.pack(side=tk.TOP, fill=tk.X)
 
-        title_lbl = ttk.Label(top, text="Monty Hall — Παράδειγμα (Premium)\n", font=self.title_font)
+        title_lbl = ttk.Label(top, text="Monty Hall — Παράδειγμα\n", font=self.title_font)
         title_lbl.pack(padx=(4,20))
 
         controls = ttk.Frame(top)
@@ -124,8 +151,12 @@ class MontyHallPremium:
         self.switch_button.pack(side=tk.LEFT, expand=True, fill=tk.X, padx=4)
 
         # stats
+        # stats_frame_style = ttk.Style()
+        # stats_frame_style.configure("Stats.TLabelframe", background="lightblue")
+
         stats_frame = ttk.LabelFrame(right_panel, text="Στατιστικά", padding=8)
         stats_frame.pack(fill=tk.X, pady=(8,0))
+
 
         self.switch_label = ttk.Label(stats_frame, text='Switch: 0 νίκες / 0 συνολικά (0.00%)', font=self.small_font)
         self.switch_label.pack(anchor='w')
@@ -133,8 +164,12 @@ class MontyHallPremium:
         self.stay_label.pack(anchor='w')
 
         # footer hint
-        footer = ttk.Label(root, text="Tip: αλλάζοντας τον αριθμό θυρών βλέπεις πως αυξάνεται το όφελος του switch.", font=self.small_font)
+        style = ttk.Style()
+        style.configure("Footer.TLabel", background="orange")
+
+        footer = ttk.Label(root, text=answer, font=self.small_font, style="Footer.TLabel")
         footer.pack(side=tk.BOTTOM, pady=(6,6))
+
 
         # initialize
         self.reset_board()
