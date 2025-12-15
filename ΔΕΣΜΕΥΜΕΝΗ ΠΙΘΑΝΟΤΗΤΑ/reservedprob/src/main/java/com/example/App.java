@@ -113,7 +113,7 @@ public class App extends Application {
     Button mainExitButton = new Button("Έξοδος");
     StackPane topicsStackPane = new StackPane();
 
-    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11","Παράδειγμα 1.12");
+    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11","Παράδειγμα 1.12","Παράδειγμα 1.18");
     ComboBox<String> chapter_1_examples_ComboBox = new ComboBox<>(chapter_1_examples_List);
     HBox mainInfos_HBox = new HBox(chapter_1_examples_ComboBox);
 
@@ -123,6 +123,8 @@ public class App extends Application {
     VBox example_1_9_VBox = new VBox();
     VBox example_1_10_VBox = new VBox();
     VBox example_1_11_VBox = new VBox();
+    VBox example_1_18_VBox = new VBox();
+
 
     TextArea solutionTextArea = new TextArea();
     HBox solutionHBox = new HBox();
@@ -205,7 +207,7 @@ public class App extends Application {
                 "την περιγραφή των στοιχείων του δειγματικού χώρου, χωρίς καμία επεξήγηση ή αναφορά στις πιθανότητες"+
                 "και στους μαθηματικούς υπολογισμούς. Στην απάντησή σου εμφάνισε ΜΟΝΟ την λύση και ΜΗΝ επαναλαμβάνεις την εκφώνηση του προβλήματος.)\n" ;
 
-    String problem_1_9_str = "Εάν κάποιο αεροσκάφος βρίσκεται σε κάποια περιοχή, ένα ραντάρ " +
+        String problem_1_9_str = "Εάν κάποιο αεροσκάφος βρίσκεται σε κάποια περιοχή, ένα ραντάρ " +
                 "καταγράφει σωστά την παρουσία του με πιθανότητα 0.99 ." +
 
                 "Εάν δεν βρίσκεται στην περιοχή, το ραντάρ καταγράφει " +
@@ -318,6 +320,7 @@ public class App extends Application {
                     topicsStackPane.setPrefHeight(300);
                     solutionTextArea.setStyle("-fx-font-size:13px;");
                     titleLabel.setText("Κεφάλαιο 1ο - 1.3 ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ");
+                    titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
                     stage.setHeight(600);
                     stage.setWidth(550);
                     example_1_6();
@@ -330,6 +333,7 @@ public class App extends Application {
                 case "Παράδειγμα 1.7":
                     example_1_7_VBox.getChildren().clear();
                     titleLabel.setText("Κεφάλαιο 1ο - 1.3 ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ");
+                    titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
                     solutionTextArea.clear();
                     //topicsStackPane.setPrefHeight(700);
                     topicsStackPane.getChildren().clear();
@@ -348,6 +352,7 @@ public class App extends Application {
                      example_1_8_VBox.getChildren().clear();
 
                     titleLabel.setText("Κεφάλαιο 1ο - 1.3 ΔΕΣΜΕΥΜΕΝΗ ΠΙΘΑΝΟΤΗΤΑ");
+                    titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
                     solutionTextArea.clear();
                     topicsStackPane.getChildren().clear();
                     topicsStackPane.setPrefHeight(600);
@@ -376,6 +381,7 @@ public class App extends Application {
                     example_1_9_VBox.getChildren().clear();
                      //runPythonScript();
                     titleLabel.setText("Κεφάλαιο 1ο - 1.3 ΚΑΝΟΝΑΣ ΠΟΛΛΑΠΛΑΣΙΑΣΜΟΥ");
+                    titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
                     solutionTextArea.clear();
                     solution_TextFlow.getChildren().clear();
                     topicsStackPane.getChildren().clear();
@@ -401,6 +407,7 @@ public class App extends Application {
                     example_1_10_VBox.getChildren().clear();
                      //runPythonScript();
                     titleLabel.setText("Κεφάλαιο 1ο - 1.3 ΚΑΝΟΝΑΣ ΠΟΛΛΑΠΛΑΣΙΑΣΜΟΥ");
+                    titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
                     solutionTextArea.clear();
                     solution_TextFlow.getChildren().clear();
                     topicsStackPane.getChildren().clear();
@@ -418,6 +425,7 @@ public class App extends Application {
                     example_1_11_VBox.getChildren().clear();
                      //runPythonScript();
                     titleLabel.setText("Κεφάλαιο 1ο - 1.3 ΚΑΝΟΝΑΣ ΠΟΛΛΑΠΛΑΣΙΑΣΜΟΥ");
+                    titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
                     solutionTextArea.clear();
                     solution_TextFlow.getChildren().clear();
                     topicsStackPane.getChildren().clear();
@@ -433,34 +441,59 @@ public class App extends Application {
 
                 case "Παράδειγμα 1.12":
 
-    stage.hide();
+                    stage.hide();
 
-    String pythonPath = "C:\\Users\\Asimakis\\Documents\\ΠΑΝΕΠΙΣΤΗΜΙΟ\\BACK_UP_PROJECTS\\ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ\\MontyHall_GUI_Tkinter.py";
+                    String pythonPath = "C:\\Users\\Asimakis\\Documents\\ΠΑΝΕΠΙΣΤΗΜΙΟ\\BACK_UP_PROJECTS\\ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ\\MontyHall_GUI_Tkinter.py";
 
-    ProcessBuilder pb = new ProcessBuilder("python", pythonPath);
-    pb.redirectErrorStream(true);
+                    ProcessBuilder pb = new ProcessBuilder("python", pythonPath);
+                    pb.redirectErrorStream(true);
 
-    try {
-        Process process = pb.start();
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(process.getInputStream(), "UTF-8"));
+                    try {
+                        Process process = pb.start();
+                        BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(process.getInputStream(), "UTF-8"));
 
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println("[PYTHON] " + line);
-        }
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println("[PYTHON] " + line);
+                        }
 
-        // Περιμένουμε το κλείσιμο του Python παραθύρου
-        process.waitFor();
+                        // Περιμένουμε το κλείσιμο του Python παραθύρου
+                        process.waitFor();
 
-        // >>> ΕΔΩ ΕΠΑΝΕΜΦΑΝΙΖΕΤΑΙ ΤΟ STAGE <<<
-        Platform.runLater(() -> stage.show());
+                        // >>> ΕΔΩ ΕΠΑΝΕΜΦΑΝΙΖΕΤΑΙ ΤΟ STAGE <<<
+                        Platform.runLater(() -> stage.show());
 
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-    break;
+                    break;
+
+                case "Παράδειγμα 1.18":
+                    example_1_18_VBox.getChildren().clear();
+                     //runPythonScript();
+                    titleLabel.setText("Κεφάλαιο 1ο - 1.4 θεώρημα Συνολικής Πιθανότητας και ο Κανόνας του Bayes");
+                    titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;");
+                    solutionTextArea.clear();
+                    solution_TextFlow.getChildren().clear();
+                    topicsStackPane.getChildren().clear();
+                    topicsStackPane.setPrefHeight(190);
+                    //topicsStackPane.setPrefHeight(100);
+                    stage.setHeight(890);
+                    stage.setWidth(670);
+                    topicsStackPane.getChildren().add(example_1_18_VBox);
+                    StackPane.setAlignment(topicsStackPane, Pos.BOTTOM_CENTER);
+                    problemText = "";
+
+                    problemText = "Ένα τεστ για κάποια σπάνια ασθένεια υποτίθεται ότι είναι σωστό 95% των "+
+                                "περιπτώσεων:\nΕάν ένα άτομο έχει την ασθένεια, το αποτέλεσμα του τεστ είναι θετικό με πιθανότητα 0.95, "+
+                                "ενώ αν το άτομο ΔΕΝ έχει την ασθένεια, το τεστ είναι αρνητικό με πιθανότητα 0.95. \nΈνα άτομο που επιλέγεται τυχαία από κάποιον πληθυσμό "+
+                                "έχει πιθανότητα 0.001 να έχει την ασθένεια. \nΔεδομένου ότι για ένα άτομο το τεστ είναι";//θετικό, ποια είναι η πιθανότητα να έχει την ασθενεια;"
+
+                    example_1_18();
+                     //mainInfos_HBox.setMaxHeight(200);
+                    break;
 
 
                 default:
@@ -485,6 +518,8 @@ public class App extends Application {
         // mainVBox.layoutYProperty().bind(
         // scene.heightProperty().subtract(mainVBox.heightProperty())
         //);
+
+
 
         mainVBox.getChildren().addAll(titleLabelHBox,mainInfos_HBox,topicsStackPane,solutionHBox,mainButtonsHBox);
 
@@ -927,6 +962,44 @@ public class App extends Application {
 
         update_1_11_Solution(numOf_ProStudents_ComboBox);
 
+    }
+
+    public void example_1_18(){
+        //updateProblemToProblemsTXT(1);
+        Text example_1_18_Text = new Text(problemText);
+        example_1_18_Text.setStyle("-fx-font-size:14px;");
+        ComboBox<String> posOrNeg_1_18_Combo = new ComboBox<>();
+        posOrNeg_1_18_Combo.getItems().addAll("θετικό,","αρνητικό,");
+        posOrNeg_1_18_Combo.setValue("θετικό,");
+        Text example_1_18b_Text = new Text("ποια είναι η πιθανότητα να");
+        example_1_18b_Text.setStyle("-fx-font-size:14px;");
+        ComboBox<String> sickOrHealth_1_18_Combo = new ComboBox<>();
+        sickOrHealth_1_18_Combo.getItems().addAll("έχει την ασθένεια;","ΜΗΝ έχει την ασθένεια;");
+
+        sickOrHealth_1_18_Combo.setStyle("-fx-alignment:LEFT;");
+
+        sickOrHealth_1_18_Combo.lookupAll(".list-cell").forEach(cell ->
+            cell.setStyle("-fx-alignment:LEFT;")
+        );
+        sickOrHealth_1_18_Combo.setValue("έχει την ασθένεια;");
+        //Text example_1_18c_Text = new Text("Χρησιμοποιείται ευρέως για λήψη αποφάσεων σε αβεβαιότητα, όπως ιατρικά τεστ, ανάλυση δεδομένων και μηχανική μάθηση, και βοηθά να κατανοήσουμε ότι η αρχική μας εκτίμηση αλλάζει ανάλογα με τις νέες πληροφορίες.");
+        TextFlow example_1_18_TextFlow = new TextFlow(example_1_18_Text,posOrNeg_1_18_Combo,example_1_18b_Text,sickOrHealth_1_18_Combo);
+        example_1_18_TextFlow.setPadding(new Insets(20,20,20,20));
+        //example_1_18_TextFlow.setMaxHeight(400);
+        example_1_18_VBox.setAlignment(Pos.TOP_CENTER);
+        example_1_18_TextFlow.setMaxHeight(600);
+        example_1_18_VBox.getChildren().add(example_1_18_TextFlow);
+        example_1_18_VBox.setMaxHeight(300);
+
+        posOrNeg_1_18_Combo.valueProperty().addListener((obs,oldValue,newValue)->{
+            update_1_18_Solution(posOrNeg_1_18_Combo,sickOrHealth_1_18_Combo);
+        });
+
+        sickOrHealth_1_18_Combo.valueProperty().addListener((obs,oldValue,newValue)->{
+            update_1_18_Solution(posOrNeg_1_18_Combo,sickOrHealth_1_18_Combo);
+        });
+
+        update_1_18_Solution(posOrNeg_1_18_Combo,sickOrHealth_1_18_Combo);
     }
 
     // Συνάρτηση που επιστρέφει ένα HBox με την λύση του παραδείγματος
@@ -1526,6 +1599,104 @@ public class App extends Application {
         solutionHBox.setAlignment(Pos.CENTER);
         solutionHBox.getChildren().addAll(solution_1_11_VBox);
 
+
+    }
+
+    public void update_1_18_Solution(ComboBox<String> posOrNeg,ComboBox<String> sickOrHealth){
+         prob_ListToFraction.clear();
+        solutionHBox.getChildren().clear();
+        //solutionHBox.setMaxWidth(250);
+        HBox solutionHBox_1_18 = new HBox();
+        //solutionHBox_1_18.setMaxWidth(270);
+        solutionHBox_1_18.setPadding(new Insets(10,15,10,15));
+        solutionHBox_1_18.setStyle(
+            "-fx-background-color: wheat; " +
+            "-fx-padding: 18px; " +
+            "-fx-background-radius: 60px; " +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 10, 0.3, 0, 0); " +
+            "-fx-font-size: 13px;"
+        );
+
+
+        solutionHBox_1_18.setAlignment(Pos.CENTER);
+
+        Text bayes_R = new Text("  Ο κανόνας του Bayes είναι ένα θεμελιώδες θεώρημα πιθανοτήτων που περιγράφει πώς ενημερώνουμε την πιθανότητα ενός γεγονότος A "+
+                                "όταν έχουμε νέες πληροφορίες για ένα άλλο γεγονός 𝐵. Συγκεκριμένα, συνδυάζει την αρχική πιθανότητα του"+
+                                " A (προγενέστερη πιθανότητα) με την πιθανότητα παρατήρησης του 𝐵 υπό την προϋπόθεση ότι A ισχύει (πιθανότητα υπό συνθήκη),"+
+                                " ώστε να υπολογίσουμε την αναθεωρημένη πιθανότητα του 𝐴 δεδομένου του 𝐵. \n  Χρησιμοποιείται ευρέως για λήψη αποφάσεων σε αβεβαιότητα, όπως ιατρικά τεστ, ανάλυση δεδομένων και μηχανική μάθηση, και βοηθά να κατανοήσουμε ότι η αρχική μας εκτίμηση αλλάζει ανάλογα με τις νέες πληροφορίες."+
+                                "\n\nΣτο συγκεκριμένο πείραμα αποδεικνυεται (παραδόξως) ότι αν βγει κάποιος θετικός, έχει πολύ μεγαλύτερη πιθανότητα να είναι υγιής παρά άρρωστος!!"+
+                                "\nΑυτό συμβαίνει γιατί όταν ένα γεγονός είναι ΣΠΑΝΙΟ (ασθένεια), τα λάθη μπορούν να είναι περισσότερα από τις σωστές περιπτώσεις, ακόμα και με καλό τεστ.");
+
+
+        bayes_R.setWrappingWidth(550);
+        solutionHBox_1_18.getChildren().add(bayes_R);
+
+        //solutionHBox_1_10.setStyle("-fx-background-color:lightblue; font-size:13px;");
+        //solutionHBox_1_18.setMaxWidth(300);
+
+
+       // solutionHBox.getChildren().add(solutionHBox_1_10);
+
+        VBox solutionVBox_1_18 = new VBox(15);
+        //solutionVBox_1_18.setPrefHeight(200);
+
+
+
+        solutionVBox_1_18.setAlignment(Pos.CENTER);
+        solutionVBox_1_18.setMaxWidth(600);
+
+        VBox solution_1_18b_VBox =  new VBox();
+        //solutionVBox_1_18.getChildren().add(solution_1_18b_HBox);
+        solutionHBox.setAlignment(Pos.CENTER);
+
+        //================================================ ΛΥΣΗ ============================================================
+        //TextFlow solution_1_18_TextFlow = new TextFlow();
+        String dat_str = posOrNeg.getValue();
+        String sickOrNot_str = sickOrHealth.getValue();
+        String result_Str = String.format("%32s",("P(A|B) = P(A)*P(B|A)/P(B)"));
+
+        if((dat_str != null)&&(sickOrNot_str != null)){
+            if((dat_str.equals("θετικό,"))&&(sickOrNot_str.equals("έχει την ασθένεια;"))){
+                result_Str = String.format("%32s",("P(A|B) = P(A) * P(B|A) / P(B) = 0.001 * 0.95 / 0.0509 ≈ 0.0187 ή 1,87%"));
+                //result_Str += ""
+            }
+            else if((dat_str.equals("θετικό,"))&&(sickOrNot_str.equals("ΜΗΝ έχει την ασθένεια;"))){
+                result_Str = String.format("%32s",("P(A\u1D9C|B) = 1 - P(A|B) = 1 - P(A) * P(B|A) / P(B) = 1 - (0.001 * 0.95 / 0.0509) ≈ 1 - 0.0187) ≈ 0.9813 ή 98,13%"));
+            }
+            else if((dat_str.equals("αρνητικό,"))&&(sickOrNot_str.equals("έχει την ασθένεια;"))){
+                result_Str = String.format("%32s",("P(A|B\u1D9C) = P(A) * P(B\u1D9C|A) / P(B\u1D9C) = 0,5 * 0,001 / 0,9491 ≈ 0,0000527 ή 0,00527% "));
+            }
+            else if((dat_str.equals("αρνητικό,"))&&(sickOrNot_str.equals("ΜΗΝ έχει την ασθένεια;"))){
+                result_Str = String.format("%32s",("P(A\u1D9C|B\u1D9C) = 1 - P(A|B\u1D9C) = 1 - 0,0000527 = 0.9999473 ή 99,995%"));
+            }
+        }
+
+
+
+
+        Text facts_1_18_Text = new Text("                  ΓΕΓΟΝΟΤΑ\nΑ ---> Το άτομο έχει την ασθένεια (άρρωστος)."+
+                                        "\nB ---> Το αποτέλεσμα του τεστ είναι θετικό."+
+                                        "\nA\u1D9C ---> Το άτομο ΔΕΝ έχει την ασθένεια (υγιής)."+
+                                        "\nB\u1D9C ---> Το αποτέλεσμα του τεστ είναι αρνητικό."+
+                                        "\n\n                ΠΙΘΑΝΟΤΗΤΕΣ ΒΑΣΗ ΕΚΦΩΝΗΣΗΣ  \nP(A) = 0.001\nP(A\u1D9C) = 1 - P(A) = 0.999"+
+                                        "\nP(B|A) = 0.95\nP(B\u1D9C|A) = 0.05\nP(B\u1D9C|A\u1D9C) = 0.95"+
+                                        "\nP(B|A\u1D9C) = 0.05"+
+                                        "\nP(B) = P(B|A) * P(A) + P(B|A\u1D9C) * P(A\u1D9C) = 0.95 * 0.001 + 0.05 * 0.999 = 0.0509"+
+                                        "\nP(B\u1D9C) = 1 - P(B) = 1 - 0.0509 ≈ 0.9491\n");
+
+        String str_commet = "Δηλαδή, αν βγει κάποιος θετικός, έχει πολύ μεγαλύτερη πιθανότητα να είναι υγιής παρά άρρωστος\n"+
+                            "ΣΥΜΠΕΡΑΣΜΑ: Όταν ένα γεγονός είναι ΣΠΑΝΙΟ (ασθένεια), τα λάθη μπορούν να είναι περισσότερα από τις σωστές περιπτώσεις — ακόμα και με καλό τεστ.";
+
+        Text facts_1_18b_Text = new Text(result_Str);
+        facts_1_18_Text.setStyle("-fx-font-weight:bold; text-fill: brown; font-size: 16px;");
+
+        solution_1_18b_VBox.getChildren().addAll(facts_1_18_Text,facts_1_18b_Text);
+
+        solution_1_18b_VBox.setStyle("-fx-font-weight:bold; text-fill: brown; font-size: 16px;");
+
+        solutionVBox_1_18.getChildren().addAll(solutionHBox_1_18,solution_1_18b_VBox);
+
+        solutionHBox.getChildren().add(solutionVBox_1_18);
 
     }
 
