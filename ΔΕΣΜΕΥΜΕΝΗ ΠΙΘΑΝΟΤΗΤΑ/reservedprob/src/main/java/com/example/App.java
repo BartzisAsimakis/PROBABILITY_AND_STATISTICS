@@ -26,6 +26,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -42,6 +43,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -113,7 +115,7 @@ public class App extends Application {
     Button mainExitButton = new Button("Έξοδος");
     StackPane topicsStackPane = new StackPane();
 
-    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11","Παράδειγμα 1.12","Παράδειγμα 1.18");
+    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11","Παράδειγμα 1.12","Παράδειγμα 1.18","Παράδειγμα 1.24","Παράδειγμα 1.25");
     ComboBox<String> chapter_1_examples_ComboBox = new ComboBox<>(chapter_1_examples_List);
     HBox mainInfos_HBox = new HBox(chapter_1_examples_ComboBox);
 
@@ -310,12 +312,16 @@ public class App extends Application {
         solutionTextArea.setStyle("-fx-background-color:beige;");
 
         chapter_1_examples_ComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-
+            //chapter_1_examples_ComboBox.getSelectionModel().clearSelection();
+            //chapter_1_examples_ComboBox.setPromptText("Επίλέξτε Παράδειγμα");
             switch (newVal) {
                 case "Παράδειγμα 1.6":
                     //mainInfos_HBox.setMaxHeight(200);
+                    //chapter_1_examples_ComboBox.getSelectionModel().clearSelection();
+
                     example_1_6_VBox.getChildren().clear();
                     solutionTextArea.clear();
+                    solutionHBox.getChildren().clear();
                     topicsStackPane.getChildren().clear();
                     topicsStackPane.setPrefHeight(300);
                     solutionTextArea.setStyle("-fx-font-size:13px;");
@@ -337,11 +343,13 @@ public class App extends Application {
                     solutionTextArea.clear();
                     //topicsStackPane.setPrefHeight(700);
                     topicsStackPane.getChildren().clear();
-                    topicsStackPane.setPrefHeight(380);
-                    stage.setWidth(550);
+
+
                     topicsStackPane.getChildren().add(example_1_7_VBox);
                     StackPane.setAlignment(topicsStackPane, Pos.BOTTOM_CENTER);
                     stage.setHeight(720);
+                    stage.setWidth(550);
+                    topicsStackPane.setPrefHeight(380);
                     example_1_7();
                     break;
 
@@ -357,7 +365,7 @@ public class App extends Application {
                     topicsStackPane.getChildren().clear();
                     topicsStackPane.setPrefHeight(600);
                     stage.setHeight(880);
-                    stage.setWidth(550);
+                    stage.setWidth(600);
                     topicsStackPane.getChildren().add(example_1_8_VBox);
                     StackPane.setAlignment(topicsStackPane, Pos.BOTTOM_CENTER);
                     problemText = "";
@@ -388,6 +396,10 @@ public class App extends Application {
                     //topicsStackPane.setPrefHeight(100);
                     stage.setHeight(900);
                     stage.setWidth(600);
+
+                    topicsStackPane.getChildren().clear();
+                    topicsStackPane.setPrefHeight(900);
+
                     //example_1_10_VBox.setStyle("-fx-font-size:13px;");
                     topicsStackPane.getChildren().add(example_1_9_VBox);
                     StackPane.setAlignment(topicsStackPane, Pos.BOTTOM_CENTER);
@@ -427,6 +439,7 @@ public class App extends Application {
                     titleLabel.setText("Κεφάλαιο 1ο - 1.3 ΚΑΝΟΝΑΣ ΠΟΛΛΑΠΛΑΣΙΑΣΜΟΥ");
                     titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
                     solutionTextArea.clear();
+                    solutionHBox.getChildren().clear();
                     solution_TextFlow.getChildren().clear();
                     topicsStackPane.getChildren().clear();
                     //topicsStackPane.setPrefHeight(100);
@@ -461,22 +474,55 @@ public class App extends Application {
                         // Περιμένουμε το κλείσιμο του Python παραθύρου
                         process.waitFor();
 
+
+
+                        //chapter_1_examples_ComboBox.getSelectionModel().clearSelection();
+
                         // >>> ΕΔΩ ΕΠΑΝΕΜΦΑΝΙΖΕΤΑΙ ΤΟ STAGE <<<
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        solutionHBox.getChildren().clear();
                         Platform.runLater(() -> stage.show());
+                        stage.centerOnScreen();
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        solutionHBox.getChildren().clear();
+                        stage.setHeight(290);
+                        stage.setWidth(670);
+                        stage.setY(stage.getY() - 50);
+
+                        // εμφάνιση promptText στη θέση της τιμής
+                        //chapter_1_examples_ComboBox.setPromptText("Παράδειγμα 1.12");
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
+                    //chapter_1_examples_ComboBox.getSelectionModel().clearSelection();
+                    //chapter_1_examples_ComboBox.setPromptText("Επίλέξτε Παράδειγμα");
                     break;
 
                 case "Παράδειγμα 1.18":
+                    //stage.setY(stage.getY() - 30);
+                    Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+
+                    double newY = stage.getY() - 150;
+
+                    // δεν επιτρέπει αρνητική τιμή
+                    if (newY < bounds.getMinY()) {
+                        newY = bounds.getMinY();
+                    }
+
+                    stage.setY(newY);
                     example_1_18_VBox.getChildren().clear();
                      //runPythonScript();
                     titleLabel.setText("Κεφάλαιο 1ο - 1.4 θεώρημα Συνολικής Πιθανότητας και ο Κανόνας του Bayes");
                     titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;");
                     solutionTextArea.clear();
                     solution_TextFlow.getChildren().clear();
+                    solutionHBox.getChildren().clear();
                     topicsStackPane.getChildren().clear();
                     topicsStackPane.setPrefHeight(190);
                     //topicsStackPane.setPrefHeight(100);
@@ -493,13 +539,108 @@ public class App extends Application {
 
                     example_1_18();
                      //mainInfos_HBox.setMaxHeight(200);
+
+                     break;
+
+                case "Παράδειγμα 1.24":
+
+                    stage.hide();
+
+                    String pythonPath2 = "C:\\Users\\Asimakis\\Documents\\ΠΑΝΕΠΙΣΤΗΜΙΟ\\BACK_UP_PROJECTS\\ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ\\network_probability.py";
+
+                    ProcessBuilder pb2 = new ProcessBuilder("python", pythonPath2);
+                    pb2.redirectErrorStream(true);
+
+                    try {
+                        Process process = pb2.start();
+                        BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(process.getInputStream(), "UTF-8"));
+
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println("[PYTHON] " + line);
+                        }
+
+                        // Περιμένουμε το κλείσιμο του Python παραθύρου
+                        process.waitFor();
+
+                        // >>> ΕΔΩ ΕΠΑΝΕΜΦΑΝΙΖΕΤΑΙ ΤΟ STAGE <<<
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        Platform.runLater(() -> stage.show());
+                        stage.centerOnScreen();
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        example_1_18_VBox.getChildren().clear();
+                        solutionHBox.getChildren().clear();
+                        stage.setHeight(290);
+                        stage.setWidth(670);
+                        //stage.setY(stage.getY() - 20);
+
+                        //chapter_1_examples_ComboBox.getSelectionModel().clearSelection();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+
                     break;
 
+                case "Παράδειγμα 1.25":
+
+                    stage.hide();
+
+                    String pythonPath3 = "C:\\Users\\Asimakis\\Documents\\ΠΑΝΕΠΙΣΤΗΜΙΟ\\BACK_UP_PROJECTS\\ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ\\binomial_prob.py";
+
+                    ProcessBuilder pb3 = new ProcessBuilder("python", pythonPath3);
+                    pb3.redirectErrorStream(true);
+
+                    try {
+                        Process process = pb3.start();
+                        BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(process.getInputStream(), "UTF-8"));
+
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println("[PYTHON] " + line);
+                        }
+
+                        // Περιμένουμε το κλείσιμο του Python παραθύρου
+                        process.waitFor();
+
+                        // >>> ΕΔΩ ΕΠΑΝΕΜΦΑΝΙΖΕΤΑΙ ΤΟ STAGE <<<
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        Platform.runLater(() -> stage.show());
+                        stage.centerOnScreen();
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        example_1_18_VBox.getChildren().clear();
+                        solutionHBox.getChildren().clear();
+                        stage.setHeight(290);
+                        stage.setWidth(670);
+                        //stage.setY(stage.getY() - 20);
+
+                        //chapter_1_examples_ComboBox.getSelectionModel().clearSelection();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+
+                    break;
 
                 default:
                     stage.setHeight(930);
                     stage.setWidth(550);
             }
+
         });
 
         HBox mValue_HBox = new HBox(m_value_ComboBox);
