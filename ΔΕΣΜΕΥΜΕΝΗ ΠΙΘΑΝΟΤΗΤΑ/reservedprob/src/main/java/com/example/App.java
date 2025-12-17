@@ -115,7 +115,7 @@ public class App extends Application {
     Button mainExitButton = new Button("Έξοδος");
     StackPane topicsStackPane = new StackPane();
 
-    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11","Παράδειγμα 1.12","Παράδειγμα 1.18","Παράδειγμα 1.24","Παράδειγμα 1.25");
+    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11","Παράδειγμα 1.12","Παράδειγμα 1.18","Παράδειγμα 1.24","Παράδειγμα 1.25","Πρόβλημα 24 - Το δίλημμα του φυλακισμένου","Πρόβλημα 50 - Το πρόβλημα των γενεθλίων");
     ComboBox<String> chapter_1_examples_ComboBox = new ComboBox<>(chapter_1_examples_List);
     HBox mainInfos_HBox = new HBox(chapter_1_examples_ComboBox);
 
@@ -385,7 +385,16 @@ public class App extends Application {
 
                 case "Παράδειγμα 1.9":
 
+                    Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
 
+                    double newY = stage.getY() - 150;
+
+                    // δεν επιτρέπει αρνητική τιμή
+                    if (newY < bounds.getMinY()) {
+                        newY = bounds.getMinY();
+                    }
+
+                    stage.setY(newY);
                     example_1_9_VBox.getChildren().clear();
                      //runPythonScript();
                     titleLabel.setText("Κεφάλαιο 1ο - 1.3 ΚΑΝΟΝΑΣ ΠΟΛΛΑΠΛΑΣΙΑΣΜΟΥ");
@@ -395,9 +404,10 @@ public class App extends Application {
                     topicsStackPane.getChildren().clear();
                     //topicsStackPane.setPrefHeight(100);
                     stage.setHeight(900);
-                    stage.setWidth(600);
+                    stage.setWidth(620);
 
                     topicsStackPane.getChildren().clear();
+                    topicsStackPane.setPrefWidth(600);
                     topicsStackPane.setPrefHeight(900);
 
                     //example_1_10_VBox.setStyle("-fx-font-size:13px;");
@@ -506,16 +516,16 @@ public class App extends Application {
 
                 case "Παράδειγμα 1.18":
                     //stage.setY(stage.getY() - 30);
-                    Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+                    Rectangle2D bounds2 = Screen.getPrimary().getVisualBounds();
 
-                    double newY = stage.getY() - 150;
+                    double newY2 = stage.getY() - 150;
 
                     // δεν επιτρέπει αρνητική τιμή
-                    if (newY < bounds.getMinY()) {
-                        newY = bounds.getMinY();
+                    if (newY2 < bounds2.getMinY()) {
+                        newY2 = bounds2.getMinY();
                     }
 
-                    stage.setY(newY);
+                    stage.setY(newY2);
                     example_1_18_VBox.getChildren().clear();
                      //runPythonScript();
                     titleLabel.setText("Κεφάλαιο 1ο - 1.4 θεώρημα Συνολικής Πιθανότητας και ο Κανόνας του Bayes");
@@ -526,7 +536,7 @@ public class App extends Application {
                     topicsStackPane.getChildren().clear();
                     topicsStackPane.setPrefHeight(190);
                     //topicsStackPane.setPrefHeight(100);
-                    stage.setHeight(890);
+                    stage.setHeight(885);
                     stage.setWidth(670);
                     topicsStackPane.getChildren().add(example_1_18_VBox);
                     StackPane.setAlignment(topicsStackPane, Pos.BOTTOM_CENTER);
@@ -600,6 +610,53 @@ public class App extends Application {
 
                     try {
                         Process process = pb3.start();
+                        BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(process.getInputStream(), "UTF-8"));
+
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println("[PYTHON] " + line);
+                        }
+
+                        // Περιμένουμε το κλείσιμο του Python παραθύρου
+                        process.waitFor();
+
+                        // >>> ΕΔΩ ΕΠΑΝΕΜΦΑΝΙΖΕΤΑΙ ΤΟ STAGE <<<
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        Platform.runLater(() -> stage.show());
+                        stage.centerOnScreen();
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        example_1_18_VBox.getChildren().clear();
+                        solutionHBox.getChildren().clear();
+                        stage.setHeight(290);
+                        stage.setWidth(670);
+                        //stage.setY(stage.getY() - 20);
+
+                        //chapter_1_examples_ComboBox.getSelectionModel().clearSelection();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+
+                    break;
+
+                case "Πρόβλημα 24 - Το δίλημμα του φυλακισμένου":
+
+                    stage.hide();
+
+                    String pythonPath4 = "C:\\Users\\Asimakis\\Documents\\ΠΑΝΕΠΙΣΤΗΜΙΟ\\BACK_UP_PROJECTS\\ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ\\prisoner_problem.py";
+
+                    ProcessBuilder pb4 = new ProcessBuilder("python", pythonPath4);
+                    pb4.redirectErrorStream(true);
+
+                    try {
+                        Process process = pb4.start();
                         BufferedReader reader = new BufferedReader(
                                 new InputStreamReader(process.getInputStream(), "UTF-8"));
 
