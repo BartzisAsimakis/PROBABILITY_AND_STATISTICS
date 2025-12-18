@@ -14,7 +14,7 @@ from matplotlib.figure import Figure
 
 # ==================== ΒΟΗΘΗΤΙΚΕΣ ====================
 
-def center_window(win, width=1000, height=760):
+def center_window(win, width=950, height=920):
     screen_w = win.winfo_screenwidth()
     screen_h = win.winfo_screenheight()
     x = (screen_w // 2) - (width // 2)
@@ -186,4 +186,25 @@ text_result.pack(pady=10)
 # ==================== ΕΚΚΙΝΗΣΗ ====================
 
 update_graph()
+
+def add_footer(root, text="Created by Bartzis Asimakis", bg_color="orange", height=30):
+    """
+    Προσθέτει ένα footer στο κάτω μέρος του παραθύρου, σταθερού ύψους,
+    ορατό ανεξάρτητα από το μέγεθος του παραθύρου.
+
+    Parameters:
+    - root: Το κύριο Tkinter παράθυρο (Tk ή Toplevel)
+    - text: Το κείμενο που θα εμφανίζεται
+    - bg_color: Χρώμα φόντου του footer
+    - height: Ύψος footer σε pixels
+    """
+    # Δημιουργία Label
+    footer = tk.Label(root, text=text, bg=bg_color, fg="white", font=("Arial", 10))
+
+    # Σταθερή θέση στο κάτω μέρος
+    footer.place(relx=0, rely=1, anchor='sw', relwidth=1, height=height)
+
+    return footer
+add_footer(root)
+
 root.mainloop()

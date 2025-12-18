@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import messagebox
 from math import comb
 
+
+
 # Συνάρτηση διωνυμικής πιθανότητας
 def binomial_probability(k, n, p):
     return comb(n, k) * (p ** k) * ((1 - p) ** (n - k))
@@ -83,6 +85,8 @@ tk.Entry(input_frame, textvariable=c_var).grid(row=0, column=1, padx=5, pady=5)
 tk.Entry(input_frame, textvariable=n_var).grid(row=1, column=1, padx=5, pady=5)
 tk.Entry(input_frame, textvariable=p_var).grid(row=2, column=1, padx=5, pady=5)
 
+
+
 calc_button = tk.Button(root, text="Υπολογισμός", command=calculate, bg="orange")
 calc_button.pack(pady=10)
 
@@ -101,5 +105,19 @@ explanation_label = tk.Label(
     wraplength=750  # ενεργοποιεί το wrapping
 )
 explanation_label.pack(fill="both", padx=20, pady=10, expand=True)
+def add_footer(root, text="Created by Bartzis Asimakis", bg_color="orange"):
+    """
+    Προσθέτει ένα footer στο κάτω μέρος του παραθύρου.
+
+    Parameters:
+    - root: Το κύριο Tkinter παράθυρο (Tk ή Toplevel)
+    - text: Το κείμενο που θα εμφανίζεται
+    - bg_color: Χρώμα φόντου του footer
+    """
+    footer = tk.Label(root, text=text, bg=bg_color, fg="white", font=("Arial", 10))
+    footer.pack(side="bottom", fill="x")
+    return footer
+
+add_footer(root)
 
 root.mainloop()

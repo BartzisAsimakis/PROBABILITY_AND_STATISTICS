@@ -200,4 +200,25 @@ label_result.pack(pady=15)
 
 embed_graph()
 
+def add_footer(root, text="Created by Bartzis Asimakis", bg_color="orange", height=30):
+    """
+    Προσθέτει ένα footer στο κάτω μέρος του παραθύρου, σταθερού ύψους,
+    ορατό ανεξάρτητα από το μέγεθος του παραθύρου.
+
+    Parameters:
+    - root: Το κύριο Tkinter παράθυρο (Tk ή Toplevel)
+    - text: Το κείμενο που θα εμφανίζεται
+    - bg_color: Χρώμα φόντου του footer
+    - height: Ύψος footer σε pixels
+    """
+    # Δημιουργία Label
+    footer = tk.Label(root, text=text, bg=bg_color, fg="white", font=("Arial", 10))
+
+    # Σταθερή θέση στο κάτω μέρος
+    footer.place(relx=0, rely=1, anchor='sw', relwidth=1, height=height)
+
+    return footer
+
+add_footer(root)
+
 root.mainloop()

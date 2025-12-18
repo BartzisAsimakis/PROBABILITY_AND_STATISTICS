@@ -178,4 +178,21 @@ tk.Label(
     justify="left"
 ).pack(padx=10, pady=5)
 
+def add_footer(root, text="Created by Bartzis Asimakis", bg_color="orange"):
+    """
+    Προσθέτει ένα footer στο κάτω μέρος του παραθύρου.
+
+    Parameters:
+    - root: Το κύριο Tkinter παράθυρο (Tk ή Toplevel)
+    - text: Το κείμενο που θα εμφανίζεται
+    - bg_color: Χρώμα φόντου του footer
+    """
+    footer = tk.Label(root, text=text, bg=bg_color, fg="white", font=("Arial", 10))
+    footer.pack(side="bottom", fill="x")
+    return footer
+
+
+#root.bind("<Return>", enter_pressed)
+add_footer(root)
+
 root.mainloop()

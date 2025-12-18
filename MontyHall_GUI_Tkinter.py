@@ -503,9 +503,30 @@ class MontyHallPremium:
         self.spin.config(state='normal')
         self.update_stats_labels()
         self.status_label.config(text=f'Προσομοίωση {trials} ολοκληρώθηκε. Δείτε τα στατιστικά.')
+def add_footer(root, text="Created by Bartzis Asimakis", bg_color="orange", height=30):
+    """
+    Προσθέτει ένα footer στο κάτω μέρος του παραθύρου, σταθερού ύψους,
+    ορατό ανεξάρτητα από το μέγεθος του παραθύρου.
+
+    Parameters:
+    - root: Το κύριο Tkinter παράθυρο (Tk ή Toplevel)
+    - text: Το κείμενο που θα εμφανίζεται
+    - bg_color: Χρώμα φόντου του footer
+    - height: Ύψος footer σε pixels
+    """
+    # Δημιουργία Label
+    footer = tk.Label(root, text=text, bg=bg_color, fg="white", font=("Arial", 10))
+
+    # Σταθερή θέση στο κάτω μέρος
+    footer.place(relx=0, rely=1, anchor='sw', relwidth=1, height=height)
+
+    return footer
+
 
 # ---------- run ----------
 if __name__ == "__main__":
     root = tk.Tk()
     app = MontyHallPremium(root)
+
+    add_footer(root)
     root.mainloop()
