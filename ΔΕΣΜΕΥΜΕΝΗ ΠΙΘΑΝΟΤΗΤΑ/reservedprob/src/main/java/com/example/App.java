@@ -115,7 +115,7 @@ public class App extends Application {
     Button mainExitButton = new Button("Έξοδος");
     StackPane topicsStackPane = new StackPane();
 
-    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11","Παράδειγμα 1.12","Παράδειγμα 1.18","Παράδειγμα 1.24","Παράδειγμα 1.25","Πρόβλημα 24 - Το δίλημμα του φυλακισμένου","Πρόβλημα 50 - Το πρόβλημα των γενεθλίων");
+    ObservableList<String> chapter_1_examples_List = FXCollections.observableArrayList("Παράδειγμα 1.6","Παράδειγμα 1.7","Παράδειγμα 1.8","Παράδειγμα 1.9","Παράδειγμα 1.10","Παράδειγμα 1.11","Παράδειγμα 1.12","Παράδειγμα 1.18","Παράδειγμα 1.24","Παράδειγμα 1.25","Πρόβλημα 24 - Το δίλημμα του φυλακισμένου","Πρόβλημα 50 - Το πρόβλημα των γενεθλίων","Πρόβλημα 42 - Η χρεωκοπία του παίκτη");
     ComboBox<String> chapter_1_examples_ComboBox = new ComboBox<>(chapter_1_examples_List);
     HBox mainInfos_HBox = new HBox(chapter_1_examples_ComboBox);
 
@@ -314,6 +314,17 @@ public class App extends Application {
         chapter_1_examples_ComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
             //chapter_1_examples_ComboBox.getSelectionModel().clearSelection();
             //chapter_1_examples_ComboBox.setPromptText("Επίλέξτε Παράδειγμα");
+            //stage.setY(stage.getY() - 30);
+                    Rectangle2D bounds3 = Screen.getPrimary().getVisualBounds();
+
+                    double newY3 = stage.getY() - 150;
+
+                    // δεν επιτρέπει αρνητική τιμή
+                    if (newY3 < bounds3.getMinY()) {
+                        newY3 = bounds3.getMinY();
+                    }
+
+                    stage.setY(newY3);
             switch (newVal) {
                 case "Παράδειγμα 1.6":
                     //mainInfos_HBox.setMaxHeight(200);
@@ -503,6 +514,18 @@ public class App extends Application {
                         stage.setWidth(670);
                         stage.setY(stage.getY() - 50);
 
+                        //stage.setY(stage.getY() - 30);
+                    Rectangle2D bounds4 = Screen.getPrimary().getVisualBounds();
+
+                    double newY4 = stage.getY() - 150;
+
+                    // δεν επιτρέπει αρνητική τιμή
+                    if (newY4 < bounds4.getMinY()) {
+                        newY4 = bounds4.getMinY();
+                    }
+
+                    stage.setY(newY4);
+
                         // εμφάνιση promptText στη θέση της τιμής
                         //chapter_1_examples_ComboBox.setPromptText("Παράδειγμα 1.12");
 
@@ -657,6 +680,100 @@ public class App extends Application {
 
                     try {
                         Process process = pb4.start();
+                        BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(process.getInputStream(), "UTF-8"));
+
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println("[PYTHON] " + line);
+                        }
+
+                        // Περιμένουμε το κλείσιμο του Python παραθύρου
+                        process.waitFor();
+
+                        // >>> ΕΔΩ ΕΠΑΝΕΜΦΑΝΙΖΕΤΑΙ ΤΟ STAGE <<<
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        Platform.runLater(() -> stage.show());
+                        stage.centerOnScreen();
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        example_1_18_VBox.getChildren().clear();
+                        solutionHBox.getChildren().clear();
+                        stage.setHeight(290);
+                        stage.setWidth(670);
+                        //stage.setY(stage.getY() - 20);
+
+                        //chapter_1_examples_ComboBox.getSelectionModel().clearSelection();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+
+                    break;
+
+                case "Πρόβλημα 50 - Το πρόβλημα των γενεθλίων":
+
+                    stage.hide();
+
+                    String pythonPath5 = "C:\\Users\\Asimakis\\Documents\\ΠΑΝΕΠΙΣΤΗΜΙΟ\\BACK_UP_PROJECTS\\ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ\\birthday_problem.py";
+
+                    ProcessBuilder pb5 = new ProcessBuilder("python", pythonPath5);
+                    pb5.redirectErrorStream(true);
+
+                    try {
+                        Process process = pb5.start();
+                        BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(process.getInputStream(), "UTF-8"));
+
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println("[PYTHON] " + line);
+                        }
+
+                        // Περιμένουμε το κλείσιμο του Python παραθύρου
+                        process.waitFor();
+
+                        // >>> ΕΔΩ ΕΠΑΝΕΜΦΑΝΙΖΕΤΑΙ ΤΟ STAGE <<<
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        Platform.runLater(() -> stage.show());
+                        stage.centerOnScreen();
+                        solutionTextArea.clear();
+                        solution_TextFlow.getChildren().clear();
+                        topicsStackPane.getChildren().clear();
+                        example_1_18_VBox.getChildren().clear();
+                        solutionHBox.getChildren().clear();
+                        stage.setHeight(290);
+                        stage.setWidth(670);
+                        //stage.setY(stage.getY() - 20);
+
+                        //chapter_1_examples_ComboBox.getSelectionModel().clearSelection();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+
+                    break;
+
+                case "Πρόβλημα 42 - Η χρεωκοπία του παίκτη":
+
+                    stage.hide();
+
+                    String pythonPath6 = "C:\\Users\\Asimakis\\Documents\\ΠΑΝΕΠΙΣΤΗΜΙΟ\\BACK_UP_PROJECTS\\ΠΙΘΑΝΟΤΗΤΕΣ_ΕΡΓΟ\\gamblers_ruin.py";
+
+                    ProcessBuilder pb6 = new ProcessBuilder("python", pythonPath6);
+                    pb6.redirectErrorStream(true);
+
+                    try {
+                        Process process = pb6.start();
                         BufferedReader reader = new BufferedReader(
                                 new InputStreamReader(process.getInputStream(), "UTF-8"));
 
