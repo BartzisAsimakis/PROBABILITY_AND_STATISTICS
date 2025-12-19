@@ -27,15 +27,15 @@ import sys
 #print(sys.executable)  # για έλεγχο ποια Python τρέχει
 
 
-client = OpenAI()
+# client = OpenAI()
 
-response = client.responses.create(
-    model="gpt-4o-mini",
-    input="Μία ιστορική πληροφορία για το παράδοξο του Monty Hall μέχρι 80 χαρακτήρες"
-)
+# response = client.responses.create(
+#     model="gpt-4o-mini",
+#     input="Μία ιστορική πληροφορία για το παράδοξο του Monty Hall μέχρι 80 χαρακτήρες"
+# )
 
-answer = response.output_text
-print(answer)
+# answer = response.output_text
+# print(answer)
 
 
 
@@ -57,7 +57,7 @@ class MontyHallPremium:
         style.configure(".", background="lightblue")  # Το "." εφαρμόζεται σε όλα τα ttk widgets
 
         self.root = root
-        root.title("Monty Hall — Premium Demo")
+        root.title("Το παράδοξο του Monty Hall")
         root.configure(bg="orange")  # ή root["bg"] = "lightblue"
         # styling & fonts
         self.base_font = font.nametofont("TkDefaultFont")
@@ -167,7 +167,7 @@ class MontyHallPremium:
         style = ttk.Style()
         style.configure("Footer.TLabel", background="orange")
 
-        footer = ttk.Label(root, text=answer, font=self.small_font, style="Footer.TLabel")
+        footer = ttk.Label(root, text="", font=self.small_font, style="Footer.TLabel")
         footer.pack(side=tk.BOTTOM, pady=(6,6))
 
 
