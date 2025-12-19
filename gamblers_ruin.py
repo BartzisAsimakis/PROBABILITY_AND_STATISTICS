@@ -47,7 +47,7 @@ def calculate():
                 "🎉 ΑΠΟΤΕΛΕΣΜΑ 🎉\n\n"
                 f"Πιθανότητα να φτάσει τα {n}€:\n\n"
                 f"{prob:.6f}\n"
-                f"({percent:.2f}%)"
+                f"({percent:.4f}%)"
             )
         )
 
@@ -78,6 +78,19 @@ title = tk.Label(
     bg="lightblue"
 )
 title.pack(pady=10)
+
+problem = tk.Label(
+    root,
+    text="Ένας παίκτης βάζει μια σειρά από ανεξάρτητα στοιχήματα. "
+         "\nΣε κάθε στοιχημα, κερδίζει 1 euro με πιθανότητα p και χάνει 1 euro\nμε πιθανότητα 1 - p."
+         " Αρχικά ο παίκτης έχει k euro και παίζει μέχρι \nείτε να μαζέψει n euro είτε να μην έχει καθόλου χρήματα.\n"
+         "Ποια είναι η πιθανότητα ο παίκτης να καταλήξει με n euro;",
+    font=("Comic Sans MS", 12),
+    bg="#ADD8E6",
+    justify="left",   # στοίχιση αριστερά για πολυγραμμικό κείμενο
+    anchor="w"        # αγκύρωση αριστερά μέσα στο Label
+)
+problem.pack(padx=10, pady=10, fill="x")  # fill="x" για να απλωθεί οριζόντια
 
 # Πλαίσιο Θεωρίας
 theory_frame = tk.Frame(root, bg="orange", bd=6, relief="ridge")

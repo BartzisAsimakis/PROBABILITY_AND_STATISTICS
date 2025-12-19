@@ -130,6 +130,19 @@ title = tk.Label(root, text="🔒 Το δίλημμα του φυλακισμέ�
                  font=("Helvetica", 20, "bold"), bg="#ADD8E6")
 title.pack(pady=10)
 
+# problem = tk.Label(
+#     root,
+#     text="Ένας παίκτης βάζει μια σειρά από ανεξάρτητα στοιχήματα. "
+#          "Σε κάθε στοιχημα, κερδίζει 1 euro με πιθανότητα p και χάνει 1 euro με\n πιθανότητα 1 - p."
+#          " Αρχικά ο παίκτης έχει k euro και παίζει μέχρι είτε να μαζέψει n euro είτε να μην έχει καθόλου χρήματα.\n"
+#          "Ποια είναι η πιθανότητα ο παίκτης να καταλήξει με n euro;",
+#     font=("Helvetica", 11),
+#     bg="#ADD8E6",
+#     justify="left",   # στοίχιση αριστερά για πολυγραμμικό κείμενο
+#     anchor="w"        # αγκύρωση αριστερά μέσα στο Label
+# )
+# problem.pack(padx=10, pady=10, fill="x")  # fill="x" για να απλωθεί οριζόντια
+
 # ==================== ΕΚΦΩΝΗΣΗ ====================
 
 statement = (
@@ -139,7 +152,7 @@ statement = (
     "Ερώτημα: Αλλάζει η πιθανότητα K/N;"
 )
 
-lbl_statement = tk.Label(root, text=statement, font=("Helvetica", 12),
+lbl_statement = tk.Label(root, text=statement, font=("Helvetica", 10),
                          bg="#ADD8E6", justify="center")
 lbl_statement.pack(pady=10)
 

@@ -27,7 +27,7 @@ def embed_graph():
     people = list(range(1, 61))
     probs = [1 - probability_all_different(n) for n in people]
 
-    fig = plt.Figure(figsize=(5.5,2.8))  # μικρότερο γράφημα
+    fig = plt.Figure(figsize=(6.4,3.9))  # μικρότερο γράφημα
     ax = fig.add_subplot(111)
     ax.plot(people, probs, marker='o')
     ax.set_xlabel("Αριθμός ατόμων")

@@ -358,7 +358,7 @@ public class App extends Application {
 
                     topicsStackPane.getChildren().add(example_1_7_VBox);
                     StackPane.setAlignment(topicsStackPane, Pos.BOTTOM_CENTER);
-                    stage.setHeight(720);
+                    stage.setHeight(740);
                     stage.setWidth(550);
                     topicsStackPane.setPrefHeight(380);
                     example_1_7();
@@ -375,7 +375,7 @@ public class App extends Application {
                     solutionTextArea.clear();
                     topicsStackPane.getChildren().clear();
                     topicsStackPane.setPrefHeight(600);
-                    stage.setHeight(880);
+                    stage.setHeight(900);
                     stage.setWidth(600);
                     topicsStackPane.getChildren().add(example_1_8_VBox);
                     StackPane.setAlignment(topicsStackPane, Pos.BOTTOM_CENTER);
@@ -834,9 +834,16 @@ public class App extends Application {
         // scene.heightProperty().subtract(mainVBox.heightProperty())
         //);
 
+        Label footerLabel = new Label("Created by Bartzis Asimakis");
+        footerLabel.setStyle("-fx-background-color:orange; -fx-text-fill:white; font-weight:bold;");
+        footerLabel.setAlignment(Pos.CENTER);
+        HBox footer_HBox = new HBox(footerLabel);
+        footer_HBox.setAlignment(Pos.BASELINE_CENTER);
+        footer_HBox.setStyle("-fx-background-color:orange; -fx-text-fill:white;");
+        footer_HBox.setPadding(new Insets(20,0,0,0));
 
 
-        mainVBox.getChildren().addAll(titleLabelHBox,mainInfos_HBox,topicsStackPane,solutionHBox,mainButtonsHBox);
+        mainVBox.getChildren().addAll(titleLabelHBox,mainInfos_HBox,topicsStackPane,solutionHBox,mainButtonsHBox,footer_HBox);
 
         scene = new Scene(mainVBox, 590, 830);
         scene.setFill(Color.TRANSPARENT);
